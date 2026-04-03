@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marina Beric — Concept</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #0A0A0A;
+      --white:   #E3D7CC;
+      --mid:     #5A5A5A;
+      --rule:    #222222;
+      --rule-lt: #E0E0E0;
+      --warm:    #E3D7CC;
+      --accent:  #8C261F;
+      --display: 'Fraunces', Georgia, serif;
+      --sans:    'Inter', -apple-system, sans-serif;
+      --max:     1280px;
+      --gutter:  clamp(1.5rem, 5vw, 4rem);
+      --ease:    cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: var(--sans); background: var(--black); color: var(--white); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    .wrap { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+
+    /* ── Nav ────────────────────────────────────────── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 68px;
+      display: flex; align-items: center;
+      padding: 0 var(--gutter);
+      background: rgba(10,10,10,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav__inner { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: var(--max); margin: 0 auto; }
+    .nav__logo {
+      font-family: var(--display);
+      font-size: 1.4rem; font-weight: 800;
+      font-variation-settings: 'opsz' 72;
+      letter-spacing: -0.02em; color: var(--white);
+    }
+    .nav__links { display: flex; gap: 2rem; list-style: none; }
+    .nav__links a {
+      font-size: 0.82rem; font-weight: 500; letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.6); transition: color 0.2s;
+    }
+    .nav__links a:hover { color: var(--white); }
+    .nav__cta {
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em;
+      padding: 0.5rem 1.1rem;
+      border: 1px solid rgba(255,255,255,0.25);
+      color: var(--white) !important;
+      transition: background 0.2s, border-color 0.2s !important;
+    }
+    .nav__cta:hover { background: rgba(255,255,255,0.08) !important; }
+
+    /* ── Hero ───────────────────────────────────────── */
+    .hero {
+      min-height: 100svh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding-top: 68px;
+      padding-bottom: clamp(3rem, 6vw, 5rem);
+      border-bottom: 1px solid var(--rule);
+    }
+    .hero__inner { display: flex; flex-direction: column; gap: 2.5rem; }
+    .hero__eyebrow {
+      font-size: 1rem; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--accent);
+    }
+    .hero__headline {
+      font-family: var(--display);
+      font-size: clamp(3.5rem, 8vw, 8rem);
+      font-weight: 900; font-variation-settings: 'opsz' 144;
+      line-height: 1.0; letter-spacing: -0.02em;
+      color: var(--white); max-width: 16ch;
+    }
+    .hero__sub {
+      font-size: clamp(1rem, 1.4vw, 1.15rem);
+      font-weight: 500; line-height: 1.65; color: rgba(255,255,255,0.85); max-width: 52ch;
+    }
+    .hero__actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.82rem; font-weight: 600; letter-spacing: 0.08em;
+      padding: 0.85rem 1.75rem;
+      background: var(--white); color: var(--black);
+      border: none; cursor: pointer; transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.88; }
+    .btn-ghost {
+      display: inline-flex; align-items: center;
+      font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.55); transition: color 0.2s;
+    }
+    .btn-ghost:hover { color: var(--white); }
+
+    /* ── Carousel ───────────────────────────────────── */
+    .carousel-section {
+      background: var(--black);
+      padding: clamp(3rem, 5vw, 4.5rem) 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .carousel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 var(--gutter);
+      max-width: calc(var(--max) + var(--gutter) * 2);
+      margin: 0 auto 2rem auto;
+    }
+    .carousel-label {
+      font-size: 1rem; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: rgba(255,255,255,0.55);
+    }
+    .carousel-controls {
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .ctrl-btn {
+      width: 38px; height: 38px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.7);
+      cursor: pointer; font-size: 1rem;
+      transition: background 0.2s, color 0.2s;
+    }
+    .ctrl-btn:hover { background: rgba(255,255,255,0.14); color: var(--white); }
+    .ctrl-btn:focus-visible { outline: 2px solid var(--white); outline-offset: 2px; }
+    .ctrl-pause {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; padding: 0.45rem 0.9rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.78);
+      cursor: pointer; transition: all 0.2s;
+    }
+    .ctrl-pause:hover { color: var(--white); background: rgba(255,255,255,0.12); }
+    .ctrl-pause[aria-pressed="true"] { color: var(--white); border-color: rgba(255,255,255,0.55); }
+    .ctrl-pause:focus-visible { outline: 2px solid var(--white); outline-offset: 2px; }
+
+    /* Viewport clips the track */
+    .carousel-viewport {
+      overflow: hidden;
+      padding: 0 8vw;
+    }
+    .carousel-track {
+      display: flex;
+      gap: clamp(1rem, 1.5vw, 1.5rem);
+      transition: transform 0.65s var(--ease);
+      will-change: transform;
+    }
+    .carousel-card {
+      flex: 0 0 calc(84vw - 16vw); /* 84vw card, leaving 8vw peek each side */
+      max-width: 900px;
+      border: 1px solid var(--rule);
+      display: flex; flex-direction: column;
+      overflow: hidden;
+      text-decoration: none; color: inherit;
+      transition: border-color 0.3s, opacity 0.4s;
+      opacity: 0.45;
+    }
+    .carousel-card.is-active { opacity: 1; border-color: rgba(255,255,255,0.2); }
+    .carousel-card__img {
+      aspect-ratio: 16/9;
+      background: #111;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.78rem; color: rgba(255,255,255,0.18);
+      letter-spacing: 0.08em; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .carousel-card__cta {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 1rem; font-weight: 600; letter-spacing: 0.04em;
+      color: var(--white);
+      padding-bottom: 0.15rem;
+      border-bottom: 1px solid rgba(255,255,255,0.35);
+      transition: border-color 0.2s;
+      width: fit-content;
+    }
+    .carousel-card__cta:hover { border-color: var(--white); }
+    .carousel-card__cta--request {
+      font-size: 0.82rem; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(227,215,204,0.5);
+      border-bottom: 1px solid rgba(227,215,204,0.2);
+      cursor: default; pointer-events: none;
+    }
+    .carousel-card__cta--request:hover { border-color: rgba(227,215,204,0.2); }
+    .carousel-card__body {
+      padding: 1.75rem 2rem 2rem;
+      display: flex; flex-direction: column; gap: 0.85rem;
+    }
+    .carousel-card__num {
+      font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: rgba(255,255,255,0.50);
+    }
+    .carousel-card__title {
+      font-family: var(--display);
+      font-size: clamp(1.2rem, 2vw, 1.65rem);
+      font-weight: 700; font-variation-settings: 'opsz' 36;
+      line-height: 1.2; letter-spacing: -0.01em;
+    }
+    .carousel-card__desc {
+      font-size: clamp(0.95rem, 1.2vw, 1.05rem); font-weight: 600; line-height: 1.65;
+      color: rgba(255,255,255,0.82); max-width: 60ch;
+    }
+    .carousel-card__tags {
+      display: flex; gap: 0.5rem; flex-wrap: wrap; padding-top: 0.25rem;
+    }
+    .ctag {
+      font-size: 0.6rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; padding: 0.22rem 0.65rem;
+      border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.65);
+    }
+    .ctag--co { border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.65); }
+
+    /* Dots */
+    .carousel-dots {
+      display: flex; gap: 0.5rem; justify-content: center;
+      margin-top: 2rem; padding: 0 var(--gutter);
+    }
+    .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      border: none; cursor: pointer; padding: 0;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .dot.is-active { background: var(--white); transform: scale(1.3); }
+    .dot:focus-visible { outline: 2px solid var(--white); outline-offset: 3px; }
+
+    /* ── Metrics dark ───────────────────────────────── */
+    .metrics-dark {
+      background: var(--black);
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+    .metrics-dark__inner {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      max-width: var(--max); margin: 0 auto;
+    }
+    .metric-dark {
+      padding: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 3vw, 2.5rem);
+      border-right: 1px solid var(--rule);
+      display: flex; flex-direction: column; gap: 0.5rem;
+    }
+    .metric-dark:last-child { border-right: none; }
+    .metric-dark__value {
+      font-family: var(--display);
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      font-weight: 900; font-variation-settings: 'opsz' 72;
+      line-height: 1; letter-spacing: -0.03em; color: var(--white);
+    }
+    .metric-dark__label {
+      font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.65); line-height: 1.4;
+    }
+
+    /* ── Value Props ────────────────────────────────── */
+    .value-section {
+      background: var(--warm); color: var(--black);
+      padding: clamp(4rem, 8vw, 7rem) 0;
+      border-bottom: 1px solid var(--rule-lt);
+      position: relative;
+      overflow: hidden;
+    }
+    .value-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 55% 60% at 88% 12%, rgba(228, 210, 178, 0.95) 0%, transparent 55%),
+        radial-gradient(ellipse 65% 65% at 52% 48%, rgba(158, 68, 28, 0.92) 0%, transparent 58%),
+        radial-gradient(ellipse 42% 45% at 10% 82%, rgba(188, 142, 138, 0.75) 0%, transparent 52%),
+        radial-gradient(ellipse 38% 44% at 2%  8%,  rgba(12,  6,  2,  0.95) 0%, transparent 48%),
+        #3a1508;
+      opacity: 0.20;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .value-section > * { position: relative; z-index: 1; }
+    .value-header {
+      max-width: var(--max); margin: 0 auto;
+      padding: 0 var(--gutter); margin-bottom: clamp(2.5rem, 5vw, 4rem);
+    }
+    .value-eyebrow {
+      font-size: 1rem; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 1rem;
+    }
+    .value-title {
+      font-family: var(--display);
+      font-size: clamp(2rem, 4vw, 3.8rem);
+      font-weight: 900; font-variation-settings: 'opsz' 72;
+      letter-spacing: -0.02em; line-height: 1.05; max-width: 18ch;
+    }
+    .value-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      max-width: var(--max); margin: 0 auto;
+      padding: 0 var(--gutter); gap: 2rem;
+    }
+    .value-card {
+      padding: 2rem 0; border-top: 2px solid var(--black);
+      display: flex; flex-direction: column; gap: 0.75rem;
+    }
+    .value-card__title {
+      font-family: var(--display);
+      font-size: 1.3rem; font-weight: 700;
+      font-variation-settings: 'opsz' 36; letter-spacing: -0.01em;
+    }
+    .value-card__desc { font-size: 1rem; font-weight: 500; line-height: 1.7; color: #3D3D3D; }
+
+    /* ── About / Interests dark ─────────────────────── */
+    .about-dark {
+      background: var(--black); color: var(--white);
+      padding: clamp(4rem, 8vw, 7rem) 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .about-dark__inner {
+      max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter);
+      display: grid; grid-template-columns: 1fr 1.4fr;
+      gap: clamp(3rem, 6vw, 6rem); align-items: start;
+    }
+    .about-dark__left { position: sticky; top: 6rem; }
+    .about-dark__eyebrow {
+      font-size: 1rem; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: rgba(255,255,255,0.58); margin-bottom: 1.5rem;
+    }
+    .about-dark__headline {
+      font-family: var(--display);
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 900; font-variation-settings: 'opsz' 72;
+      letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 1.5rem;
+    }
+    .about-dark__body { font-size: 1rem; font-weight: 500; line-height: 1.75; color: rgba(255,255,255,0.82); }
+    .about-dark__link {
+      display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 2rem;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; color: var(--white);
+      padding-bottom: 0.2rem; border-bottom: 1px solid rgba(255,255,255,0.3);
+      transition: border-color 0.2s;
+    }
+    .about-dark__link:hover { border-color: var(--white); }
+    .interests-stack { display: flex; flex-direction: column; }
+    .interest-item { padding: 2rem 0; border-bottom: 1px solid var(--rule); }
+    .interest-item:first-child { border-top: 1px solid var(--rule); }
+    .interest-item__title {
+      font-family: var(--display);
+      font-size: clamp(1.4rem, 2.2vw, 2rem);
+      font-weight: 700; font-variation-settings: 'opsz' 72;
+      letter-spacing: -0.02em; margin-bottom: 0.75rem;
+    }
+    .interest-item__text { font-size: 1rem; font-weight: 500; line-height: 1.7; color: rgba(255,255,255,0.80); }
+
+    /* ── Contact ────────────────────────────────────── */
+    .contact-section {
+      background: var(--warm); color: var(--black);
+      padding: clamp(4rem, 8vw, 7rem) 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 18% 50%,  rgba(158, 68, 28, 0.88) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 55% at 5%  10%,  rgba(12,  6,  2,  0.95) 0%, transparent 50%),
+        radial-gradient(ellipse 45% 60% at 42% 90%,  rgba(188, 142, 138, 0.65) 0%, transparent 52%),
+        radial-gradient(ellipse 40% 45% at 72% 20%,  rgba(228, 210, 178, 0.70) 0%, transparent 50%),
+        #3a1508;
+      opacity: 0.20;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .contact-section > * { position: relative; z-index: 1; }
+    .contact-inner {
+      max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter);
+      display: flex; justify-content: space-between; align-items: flex-end;
+      gap: 3rem; flex-wrap: wrap;
+    }
+    .contact__headline {
+      font-family: var(--display);
+      font-size: clamp(2.2rem, 5vw, 4.5rem);
+      font-weight: 900; font-variation-settings: 'opsz' 72;
+      letter-spacing: -0.02em; line-height: 1.0; max-width: 14ch;
+    }
+    .contact__headline em { font-style: italic; font-weight: 400; }
+    .contact__actions { display: flex; flex-direction: column; gap: 1rem; }
+    .contact__link {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 1rem; font-weight: 600; letter-spacing: 0.04em;
+      padding: 0.9rem 2rem;
+      background: var(--black); color: var(--white); transition: opacity 0.2s;
+    }
+    .contact__link:hover { opacity: 0.82; }
+    .contact__link--ghost {
+      background: transparent; color: var(--black);
+      border: 1px solid rgba(0,0,0,0.3);
+    }
+    .contact__link--ghost:hover { opacity: 0.6; }
+
+    /* ── Footer ─────────────────────────────────────── */
+    footer {
+      background: var(--black); color: rgba(255,255,255,0.28);
+      padding: 1.5rem var(--gutter);
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid var(--rule);
+      font-size: 0.75rem; letter-spacing: 0.06em;
+    }
+
+    /* ── Placeholder image tints ────────────────────── */
+    .img-spoton   {
+      background-image:
+        linear-gradient(to bottom, rgba(10,10,10,0.18) 0%, rgba(10,10,10,0.55) 100%),
+        url('images/spoton_hero.png');
+      background-size: cover;
+      background-position: center 35%;
+    }
+    .img-c1-real  {
+      background: url('images/c1-hero.png') center/cover no-repeat;
+    }
+    .img-guide-real {
+      background: url('images/guide-hero.png') center/cover no-repeat;
+    }
+
+    /* ── Password Gate ──────────────────────────────── */
+    .work-gate {
+      background: var(--black);
+      border-bottom: 1px solid var(--rule);
+      padding: clamp(4rem, 8vw, 7rem) 0;
+    }
+    .work-gate__inner {
+      max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter);
+      display: flex; flex-direction: column; gap: 2rem;
+      align-items: flex-start;
+    }
+    .work-gate__form { max-width: 520px; width: 100%; }
+    .work-gate__eyebrow {
+      font-size: 1rem; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: rgba(255,255,255,0.55);
+    }
+    .work-gate__headline {
+      font-family: var(--display);
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 900; font-variation-settings: 'opsz' 72;
+      letter-spacing: -0.02em; line-height: 1.1;
+    }
+    .work-gate__body {
+      font-size: 1rem; font-weight: 500; line-height: 1.7;
+      color: rgba(255,255,255,0.72);
+    }
+    .work-gate__form {
+      display: flex; gap: 0.75rem; flex-wrap: wrap;
+    }
+    .work-gate__input {
+      flex: 1; min-width: 200px;
+      font-family: var(--sans); font-size: 1rem;
+      padding: 0.85rem 1.1rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: var(--white); outline: none;
+      transition: border-color 0.2s;
+    }
+    .work-gate__input::placeholder { color: rgba(255,255,255,0.3); }
+    .work-gate__input:focus { border-color: rgba(255,255,255,0.55); }
+    .work-gate__submit {
+      font-family: var(--sans); font-size: 1rem; font-weight: 600;
+      padding: 0.85rem 1.75rem;
+      background: var(--white); color: var(--black);
+      border: none; cursor: pointer; transition: opacity 0.2s;
+    }
+    .work-gate__submit:hover { opacity: 0.88; }
+    .work-gate__error {
+      font-size: 0.88rem; color: #F87171;
+      display: none; margin-top: -1rem;
+    }
+    .work-gate__error.visible { display: block; }
+    /* Protected sections hidden until auth */
+    .work-protected { display: none; }
+    .work-protected.unlocked { display: block; }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="#" class="nav__logo">Marina Beric</a>
+      <ul class="nav__links">
+        <li><a href="#workGate" id="navWorkLink" onclick="scrollToWork(event)">Work</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#contact" class="nav__cta">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap hero__inner">
+      <p class="hero__eyebrow">Director of Product Design</p>
+      <h1 class="hero__headline">Research-led.<br>Impact-driven.<br>Built to scale.</h1>
+      <p class="hero__sub">
+        16+ years designing customer-facing products in payments and fintech,
+        with 7 in people leadership. I start from research, design for real behavior,
+        and ship products that create measurable outcomes for millions of people.
+      </p>
+      <div class="hero__actions">
+        <a href="#workGate" class="btn-primary" id="heroWorkBtn" onclick="scrollToWork(event)">View Work →</a>
+        <a href="#" class="btn-ghost">Connect on LinkedIn ↗</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Password Gate -->
+  <section class="work-gate" id="workGate">
+    <div class="work-gate__inner">
+      <p class="work-gate__eyebrow">Selected Work</p>
+      <h2 class="work-gate__headline">My case studies are password protected.</h2>
+      <p class="work-gate__body">
+        My work includes confidential client details and unpublished research.
+        You can find the password on my resume.
+      </p>
+      <div class="work-gate__form">
+        <input
+          class="work-gate__input"
+          id="gateInput"
+          type="password"
+          placeholder="Enter password"
+          aria-label="Work password"
+          autocomplete="current-password"
+        />
+        <button class="work-gate__submit" id="gateSubmit">View Work</button>
+      </div>
+      <p class="work-gate__error" id="gateError" role="alert">
+        Incorrect password. Check your copy of my resume.
+      </p>
+    </div>
+  </section>
+
+  <!-- Protected Work (hidden until password entered) -->
+  <div class="work-protected" id="workProtected">
+  <!-- Project Carousel -->
+  <section class="carousel-section" aria-label="Selected Work">
+    <div class="carousel-header">
+      <p class="carousel-label">Selected Work</p>
+      <div class="carousel-controls" role="group" aria-label="Carousel controls">
+        <button class="ctrl-btn" id="prevBtn" aria-label="Previous project">&#8592;</button>
+        <button class="ctrl-btn" id="nextBtn" aria-label="Next project">&#8594;</button>
+        <button class="ctrl-pause" id="pauseBtn" aria-pressed="false" aria-label="Pause auto-advance">Pause</button>
+      </div>
+    </div>
+
+    <div class="carousel-viewport">
+      <div class="carousel-track" id="carouselTrack" aria-live="polite">
+
+        <a href="work/spoton.html" class="carousel-card is-active" aria-label="Case study 1 of 3: SpotOn Express Point of Sale System">
+          <div class="carousel-card__img img-spoton"></div>
+          <div class="carousel-card__body">
+            <p class="carousel-card__num">01 / 03</p>
+            <p class="carousel-card__title">Scaling SpotOn Express Point of Sale System</p>
+            <p class="carousel-card__desc">Led design across the Express POS platform through a strategic pivot, aligning a fragmented org and shipping work that scaled from alpha to GA.</p>
+            <div class="carousel-card__tags">
+              <span class="ctag ctag--co">SpotOn</span>
+              <span class="ctag">Fintech</span>
+              <span class="ctag">Hardware + Software</span>
+              <span class="ctag">2024–Present</span>
+            </div>
+            <span class="carousel-card__cta">View Case Study →</span>
+          </div>
+        </a>
+
+        <div class="carousel-card" role="article" aria-label="Case study 2 of 3: Scaling Card Acquisitions at Capital One">
+          <div class="carousel-card__img img-c1-real"></div>
+          <div class="carousel-card__body">
+            <p class="carousel-card__num">02 / 03</p>
+            <p class="carousel-card__title">Scaling Card Acquisitions at Capital One</p>
+            <p class="carousel-card__desc">Addressed low conversion rates across credit card acquisition funnels. $100MM+ in attributable revenue impact over six years.</p>
+            <div class="carousel-card__tags">
+              <span class="ctag ctag--co">Capital One</span>
+              <span class="ctag">Fintech</span>
+              <span class="ctag">Conversion</span>
+            </div>
+            <span class="carousel-card__cta carousel-card__cta--request">Coming Soon</span>
+          </div>
+        </div>
+
+        <div class="carousel-card" role="article" aria-label="Case study 3 of 3: Design-Led Personalization at Capital One">
+          <div class="carousel-card__img img-guide-real"></div>
+          <div class="carousel-card__body">
+            <p class="carousel-card__num">03 / 03</p>
+            <p class="carousel-card__title">Design-Led Personalization at Capital One</p>
+            <p class="carousel-card__desc">Personalized the credit card application journey based on customer behavior and financial profile, driving 500K+ new accounts per year.</p>
+            <div class="carousel-card__tags">
+              <span class="ctag ctag--co">Capital One</span>
+              <span class="ctag">Personalization</span>
+              <span class="ctag">Research</span>
+            </div>
+            <span class="carousel-card__cta carousel-card__cta--request">Coming Soon</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="carousel-dots" role="tablist" aria-label="Carousel position">
+      <button class="dot is-active" role="tab" aria-selected="true"  aria-label="Project 1" data-index="0"></button>
+      <button class="dot"           role="tab" aria-selected="false" aria-label="Project 2" data-index="1"></button>
+      <button class="dot"           role="tab" aria-selected="false" aria-label="Project 3" data-index="2"></button>
+    </div>
+  </section>
+
+  <!-- Metrics -->
+  <div class="metrics-dark" aria-label="Career highlights">
+    <div class="metrics-dark__inner">
+      <div class="metric-dark">
+        <span class="metric-dark__value">16+</span>
+        <p class="metric-dark__label">Years Product Design Experience</p>
+      </div>
+      <div class="metric-dark">
+        <span class="metric-dark__value">7</span>
+        <p class="metric-dark__label">Years People Leadership</p>
+      </div>
+      <div class="metric-dark">
+        <span class="metric-dark__value">$100MM+</span>
+        <p class="metric-dark__label">Revenue Impact at Capital One</p>
+      </div>
+      <div class="metric-dark">
+        <span class="metric-dark__value">76.5%</span>
+        <p class="metric-dark__label">GPV Growth at SpotOn</p>
+      </div>
+    </div>
+  </div>
+
+  </div><!-- end work-protected -->
+
+  <!-- Value Props -->
+  <section class="value-section">
+    <div class="value-header">
+      <p class="value-eyebrow">What I bring</p>
+      <h2 class="value-title">Strategy, craft, and the rigor to connect them.</h2>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <p class="value-card__title">Design Leadership</p>
+        <p class="value-card__desc">I build design cultures. Rituals, standards, ways of working that elevate teams, not just individuals. I lead from alongside my team.</p>
+      </div>
+      <div class="value-card">
+        <p class="value-card__title">Product Strategy</p>
+        <p class="value-card__desc">I sit at the intersection of design and product strategy. I build the case for design with data and research, and influence roadmap direction.</p>
+      </div>
+      <div class="value-card">
+        <p class="value-card__title">Research and Data</p>
+        <p class="value-card__desc">I build the case for design with evidence. Qualitative research, quantitative data, A/B tests, usability sessions. I use all of it to prioritize, defend, and improve.</p>
+      </div>
+      <div class="value-card">
+        <p class="value-card__title">AI Workflows</p>
+        <p class="value-card__desc">Figma Make, Claude, ChatGPT, Perplexity, Vercel. I integrate AI to accelerate delivery and sharpen iteration without sacrificing craft.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Outside the Work -->
+  <section class="about-dark">
+    <div class="about-dark__inner">
+      <div class="about-dark__left">
+        <p class="about-dark__eyebrow">Outside the Work</p>
+        <h2 class="about-dark__headline">How I stay creative outside the office.</h2>
+        <p class="about-dark__body">I stay curious on purpose. The things I read, listen to, and obsess over feed directly into how I think at work.</p>
+        <a href="https://linkedin.com/in/marinaberic" class="about-dark__link" target="_blank">Connect on LinkedIn ↗</a>
+      </div>
+      <div class="interests-stack">
+        <div class="interest-item">
+          <p class="interest-item__title">Listening</p>
+          <p class="interest-item__text">I stay informed on global news, industry trends, and developments in AI and design through Fast Company Design, Hidden Brain, Design Better, NPR News Now, NPR Technology, The Economist, and Forbes.</p>
+        </div>
+        <div class="interest-item">
+          <p class="interest-item__title">Reading</p>
+          <p class="interest-item__text">Fiction, historical fiction, memoirs, and fantasy. My 2026 picks so far: Go as a River and The Heaven and Earth Grocery Store.</p>
+        </div>
+        <div class="interest-item">
+          <p class="interest-item__title">Obsessing</p>
+          <p class="interest-item__text">I started using ChatGPT the day it launched. Today my daily toolkit includes Claude, Figma Make, Vercel, Perplexity, and Granola. I'm eager to keep exploring how generative AI evolves and how we integrate it into everyday life.</p>
+        </div>
+        <div class="interest-item">
+          <p class="interest-item__title">Moving</p>
+          <p class="interest-item__text">I stay active away from my desk. I practice vinyasa yoga and play in a community pickleball league. I take pottery classes, sew my own clothes and home goods, and have performed with an improv troupe in Chicago's Second City.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact-section" id="contact">
+    <div class="contact-inner">
+      <h2 class="contact__headline">Let's work <em>together.</em></h2>
+      <div class="contact__actions">
+        <a href="mailto:marinaberic3@gmail.com" class="contact__link">Get in Touch →</a>
+        <a href="https://linkedin.com/in/marinaberic" class="contact__link contact__link--ghost" target="_blank">LinkedIn ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Marina Beric · Denver, CO</span>
+    <span>Director of Product Design</span>
+  </footer>
+
+  <script>
+    // ── Password Gate ───────────────────────────────────────────
+    (function() {
+      const PASSWORD   = 'Marina2026'; // Marina: change this to your chosen password
+      const AUTH_KEY   = 'mb_portfolio_auth';
+      const gate       = document.getElementById('workGate');
+      const protected_ = document.getElementById('workProtected');
+      const input      = document.getElementById('gateInput');
+      const submitBtn  = document.getElementById('gateSubmit');
+      const errorMsg   = document.getElementById('gateError');
+
+      function unlock() {
+        sessionStorage.setItem(AUTH_KEY, 'true');
+        gate.style.display = 'none';
+        protected_.classList.add('unlocked');
+        protected_.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        initCarousel();
+      }
+
+      function tryUnlock() {
+        if (input.value === PASSWORD) {
+          unlock();
+        } else {
+          errorMsg.classList.add('visible');
+          input.focus();
+          input.select();
+        }
+      }
+
+      // Check existing session
+      if (sessionStorage.getItem(AUTH_KEY) === 'true') {
+        unlock();
+      }
+
+      submitBtn.addEventListener('click', tryUnlock);
+      input.addEventListener('keydown', e => { if (e.key === 'Enter') tryUnlock(); });
+      input.addEventListener('input', () => errorMsg.classList.remove('visible'));
+    })();
+
+    // ── Carousel ────────────────────────────────────────────────
+    function initCarousel() {
+      const track    = document.getElementById('carouselTrack');
+      const cards    = Array.from(track.querySelectorAll('.carousel-card'));
+      const dots     = Array.from(document.querySelectorAll('.dot'));
+      const prevBtn  = document.getElementById('prevBtn');
+      const nextBtn  = document.getElementById('nextBtn');
+      const pauseBtn = document.getElementById('pauseBtn');
+
+      let current   = 0;
+      let paused    = false;
+      let timer     = null;
+      const INTERVAL = 5000;
+      const GAP      = 24; // px, matches clamp mid-value
+
+      function getCardWidth() {
+        return cards[0].getBoundingClientRect().width;
+      }
+
+      function goTo(index) {
+        current = (index + cards.length) % cards.length;
+        const offset = current * (getCardWidth() + GAP);
+        track.style.transform = `translateX(-${offset}px)`;
+        cards.forEach((c, i) => {
+          c.classList.toggle('is-active', i === current);
+          c.setAttribute('tabindex', i === current ? '0' : '-1');
+        });
+        dots.forEach((d, i) => {
+          d.classList.toggle('is-active', i === current);
+          d.setAttribute('aria-selected', String(i === current));
+        });
+      }
+
+      function startTimer() {
+        clearInterval(timer);
+        if (!paused) timer = setInterval(() => goTo(current + 1), INTERVAL);
+      }
+
+      function togglePause() {
+        paused = !paused;
+        pauseBtn.setAttribute('aria-pressed', String(paused));
+        pauseBtn.textContent = paused ? 'Play' : 'Pause';
+        if (paused) clearInterval(timer); else startTimer();
+      }
+
+      prevBtn.addEventListener('click', () => { goTo(current - 1); startTimer(); });
+      nextBtn.addEventListener('click', () => { goTo(current + 1); startTimer(); });
+      pauseBtn.addEventListener('click', togglePause);
+      dots.forEach(d => d.addEventListener('click', () => {
+        goTo(parseInt(d.dataset.index));
+        startTimer();
+      }));
+
+      // Keyboard: left/right arrows when focused on track area
+      document.addEventListener('keydown', e => {
+        if (e.target.closest('.carousel-section')) {
+          if (e.key === 'ArrowLeft')  { goTo(current - 1); startTimer(); }
+          if (e.key === 'ArrowRight') { goTo(current + 1); startTimer(); }
+        }
+      });
+
+      // Pause on hover
+      track.closest('.carousel-section').addEventListener('mouseenter', () => { if (!paused) clearInterval(timer); });
+      track.closest('.carousel-section').addEventListener('mouseleave', () => { if (!paused) startTimer(); });
+
+      // Init
+      goTo(0);
+      startTimer();
+    }
+
+    // Scroll to work: if unlocked, go to protected content; else go to gate
+    window.scrollToWork = function(e) {
+      e.preventDefault();
+      const target = document.getElementById('workProtected').classList.contains('unlocked')
+        ? document.getElementById('workProtected')
+        : document.getElementById('workGate');
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+  </script>
+
+</body>
+</html>
