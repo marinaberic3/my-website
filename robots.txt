@@ -1,0 +1,7 @@
+# Marina Beric — Portfolio
+# Case studies are password protected and must not be indexed.
+
+User-agent: *
+Disallow: /work/
+Disallow: /auth
+Disallow: /api/

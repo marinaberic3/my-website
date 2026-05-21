@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Marina Beric — Concept</title>
+  <title>Marina Beric | Director of Product Design</title>
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="apple-touch-icon" href="favicon-32.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -111,7 +114,6 @@
       border-bottom: 1px solid var(--rule);
     }
     .carousel-header {
-      display: flex; align-items: center; justify-content: space-between;
       padding: 0 var(--gutter);
       max-width: calc(var(--max) + var(--gutter) * 2);
       margin: 0 auto 2rem auto;
@@ -120,49 +122,25 @@
       font-size: 1rem; font-weight: 700; letter-spacing: 0.16em;
       text-transform: uppercase; color: rgba(255,255,255,0.55);
     }
-    .carousel-controls {
-      display: flex; align-items: center; gap: 0.6rem;
-    }
-    .ctrl-btn {
-      width: 38px; height: 38px;
-      display: flex; align-items: center; justify-content: center;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.12);
-      color: rgba(255,255,255,0.7);
-      cursor: pointer; font-size: 1rem;
-      transition: background 0.2s, color 0.2s;
-    }
-    .ctrl-btn:hover { background: rgba(255,255,255,0.14); color: var(--white); }
-    .ctrl-btn:focus-visible { outline: 2px solid var(--white); outline-offset: 2px; }
-    .ctrl-pause {
-      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em;
-      text-transform: uppercase; padding: 0.45rem 0.9rem;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.12);
-      color: rgba(255,255,255,0.78);
-      cursor: pointer; transition: all 0.2s;
-    }
-    .ctrl-pause:hover { color: var(--white); background: rgba(255,255,255,0.12); }
-    .ctrl-pause[aria-pressed="true"] { color: var(--white); border-color: rgba(255,255,255,0.55); }
-    .ctrl-pause:focus-visible { outline: 2px solid var(--white); outline-offset: 2px; }
 
     /* Viewport clips the track */
     .carousel-viewport {
       overflow: hidden;
       padding: 0 8vw;
+      touch-action: pan-y;
     }
     .carousel-track {
       display: flex;
       gap: clamp(1rem, 1.5vw, 1.5rem);
-      transition: transform 0.65s var(--ease);
       will-change: transform;
+      user-select: none;
     }
     .carousel-card {
-      flex: 0 0 calc(84vw - 16vw); /* 84vw card, leaving 8vw peek each side */
-      max-width: 900px;
+      flex: 0 0 calc(84vw - 16vw);
+      max-width: 600px; /* ~1/3 smaller than original 900px */
       border: 1px solid var(--rule);
       display: flex; flex-direction: column;
-      overflow: hidden;
+      overflow: hidden; flex-shrink: 0;
       text-decoration: none; color: inherit;
       transition: border-color 0.3s, opacity 0.4s;
       opacity: 0.45;
@@ -172,13 +150,11 @@
       aspect-ratio: 16/9;
       background: #111;
       display: flex; align-items: center; justify-content: center;
-      font-size: 0.78rem; color: rgba(255,255,255,0.18);
-      letter-spacing: 0.08em; text-align: center;
       position: relative; overflow: hidden;
     }
     .carousel-card__cta {
       display: inline-flex; align-items: center; gap: 0.4rem;
-      font-size: 1rem; font-weight: 600; letter-spacing: 0.04em;
+      font-size: 1.05rem; font-weight: 600; letter-spacing: 0.04em;
       color: var(--white);
       padding-bottom: 0.15rem;
       border-bottom: 1px solid rgba(255,255,255,0.35);
@@ -186,16 +162,19 @@
       width: fit-content;
     }
     .carousel-card__cta:hover { border-color: var(--white); }
-    .carousel-card__cta--request {
-      font-size: 0.82rem; font-weight: 500; letter-spacing: 0.1em;
-      text-transform: uppercase; color: rgba(227,215,204,0.5);
-      border-bottom: 1px solid rgba(227,215,204,0.2);
-      cursor: default; pointer-events: none;
+    /* Coming soon — prominent, visible badge */
+    .carousel-card__coming-soon {
+      display: inline-flex; align-items: center;
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--white);
+      padding: 0.5rem 1.1rem;
+      border: 1px solid rgba(255,255,255,0.45);
+      width: fit-content;
     }
-    .carousel-card__cta--request:hover { border-color: rgba(227,215,204,0.2); }
     .carousel-card__body {
       padding: 1.75rem 2rem 2rem;
-      display: flex; flex-direction: column; gap: 0.85rem;
+      display: flex; flex-direction: column; gap: 1rem;
     }
     .carousel-card__num {
       font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em;
@@ -203,37 +182,55 @@
     }
     .carousel-card__title {
       font-family: var(--display);
-      font-size: clamp(1.2rem, 2vw, 1.65rem);
+      font-size: clamp(1.3rem, 2.2vw, 1.8rem);
       font-weight: 700; font-variation-settings: 'opsz' 36;
-      line-height: 1.2; letter-spacing: -0.01em;
+      line-height: 1.15; letter-spacing: -0.01em;
     }
     .carousel-card__desc {
-      font-size: clamp(0.95rem, 1.2vw, 1.05rem); font-weight: 600; line-height: 1.65;
+      font-size: clamp(1rem, 1.3vw, 1.1rem); font-weight: 500; line-height: 1.65;
       color: rgba(255,255,255,0.82); max-width: 60ch;
     }
-    .carousel-card__tags {
-      display: flex; gap: 0.5rem; flex-wrap: wrap; padding-top: 0.25rem;
-    }
-    .ctag {
-      font-size: 0.6rem; font-weight: 600; letter-spacing: 0.12em;
-      text-transform: uppercase; padding: 0.22rem 0.65rem;
-      border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.65);
-    }
-    .ctag--co { border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.65); }
 
-    /* Dots */
-    .carousel-dots {
-      display: flex; gap: 0.5rem; justify-content: center;
-      margin-top: 2rem; padding: 0 var(--gutter);
+    /* Dots + controls — centered below carousel */
+    .carousel-footer {
+      display: flex; flex-direction: column;
+      align-items: center; gap: 1.25rem;
+      margin-top: 2.25rem; padding: 0 var(--gutter);
     }
+    .carousel-dots { display: flex; gap: 0.5rem; }
     .dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: rgba(255,255,255,0.2);
+      width: 7px; height: 7px; border-radius: 50%;
+      background: rgba(255,255,255,0.22);
       border: none; cursor: pointer; padding: 0;
       transition: background 0.2s, transform 0.2s;
     }
-    .dot.is-active { background: var(--white); transform: scale(1.3); }
+    .dot.is-active { background: var(--white); transform: scale(1.35); }
     .dot:focus-visible { outline: 2px solid var(--white); outline-offset: 3px; }
+    .carousel-controls {
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .ctrl-btn {
+      width: 44px; height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.09);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: rgba(255,255,255,0.88);
+      cursor: pointer; font-size: 1.1rem;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .ctrl-btn:hover { background: rgba(255,255,255,0.18); color: var(--white); border-color: rgba(255,255,255,0.5); }
+    .ctrl-btn:focus-visible { outline: 2px solid var(--white); outline-offset: 2px; }
+    .ctrl-pause {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; padding: 0.5rem 1rem;
+      background: rgba(255,255,255,0.09);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: rgba(255,255,255,0.88);
+      cursor: pointer; transition: all 0.2s;
+    }
+    .ctrl-pause:hover { color: var(--white); background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.5); }
+    .ctrl-pause[aria-pressed="true"] { color: var(--white); border-color: rgba(255,255,255,0.65); background: rgba(255,255,255,0.15); }
+    .ctrl-pause:focus-visible { outline: 2px solid var(--white); outline-offset: 2px; }
 
     /* ── Metrics dark ───────────────────────────────── */
     .metrics-dark {
@@ -267,23 +264,7 @@
       background: var(--warm); color: var(--black);
       padding: clamp(4rem, 8vw, 7rem) 0;
       border-bottom: 1px solid var(--rule-lt);
-      position: relative;
-      overflow: hidden;
     }
-    .value-section::before {
-      content: '';
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 55% 60% at 88% 12%, rgba(228, 210, 178, 0.95) 0%, transparent 55%),
-        radial-gradient(ellipse 65% 65% at 52% 48%, rgba(158, 68, 28, 0.92) 0%, transparent 58%),
-        radial-gradient(ellipse 42% 45% at 10% 82%, rgba(188, 142, 138, 0.75) 0%, transparent 52%),
-        radial-gradient(ellipse 38% 44% at 2%  8%,  rgba(12,  6,  2,  0.95) 0%, transparent 48%),
-        #3a1508;
-      opacity: 0.20;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .value-section > * { position: relative; z-index: 1; }
     .value-header {
       max-width: var(--max); margin: 0 auto;
       padding: 0 var(--gutter); margin-bottom: clamp(2.5rem, 5vw, 4rem);
@@ -359,23 +340,7 @@
     .contact-section {
       background: var(--warm); color: var(--black);
       padding: clamp(4rem, 8vw, 7rem) 0;
-      position: relative;
-      overflow: hidden;
     }
-    .contact-section::before {
-      content: '';
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 60% 80% at 18% 50%,  rgba(158, 68, 28, 0.88) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 55% at 5%  10%,  rgba(12,  6,  2,  0.95) 0%, transparent 50%),
-        radial-gradient(ellipse 45% 60% at 42% 90%,  rgba(188, 142, 138, 0.65) 0%, transparent 52%),
-        radial-gradient(ellipse 40% 45% at 72% 20%,  rgba(228, 210, 178, 0.70) 0%, transparent 50%),
-        #3a1508;
-      opacity: 0.20;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .contact-section > * { position: relative; z-index: 1; }
     .contact-inner {
       max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter);
       display: flex; justify-content: space-between; align-items: flex-end;
@@ -413,9 +378,7 @@
 
     /* ── Placeholder image tints ────────────────────── */
     .img-spoton   {
-      background-image:
-        linear-gradient(to bottom, rgba(10,10,10,0.18) 0%, rgba(10,10,10,0.55) 100%),
-        url('images/spoton_hero.png');
+      background-image: url('images/spoton_hero.png');
       background-size: cover;
       background-position: center 35%;
     }
@@ -481,11 +444,136 @@
     /* Protected sections hidden until auth */
     .work-protected { display: none; }
     .work-protected.unlocked { display: block; }
+
+    /* ── Mobile nav / hamburger ─────────────────────────── */
+    .nav__hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 38px; height: 38px;
+      background: none; border: none;
+      cursor: pointer; padding: 4px; margin-right: -4px;
+    }
+    .nav__hamburger span {
+      display: block; height: 1.5px;
+      background: var(--white);
+      transition: transform 0.3s var(--ease), opacity 0.2s;
+      transform-origin: center;
+    }
+    .nav__hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav__hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav__hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .nav__mobile-menu {
+      display: none;
+      position: fixed; top: 68px; left: 0; right: 0;
+      background: rgba(10,10,10,0.97);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--rule);
+      flex-direction: column;
+      padding: 2rem var(--gutter) 2.5rem;
+      gap: 1.75rem;
+      z-index: 99;
+      transform: translateY(-8px);
+      opacity: 0;
+      transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
+      pointer-events: none;
+    }
+    .nav__mobile-menu.open {
+      display: flex;
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .nav__mobile-menu a,
+    .nav__mobile-menu button {
+      font-family: var(--display);
+      font-size: 1.6rem; font-weight: 700;
+      font-variation-settings: 'opsz' 72;
+      letter-spacing: -0.02em;
+      color: var(--white); background: none; border: none;
+      cursor: pointer; text-align: left; padding: 0;
+      transition: color 0.2s;
+    }
+    .nav__mobile-menu a:hover,
+    .nav__mobile-menu button:hover { color: rgba(227,215,204,0.6); }
+
+    /* ── Responsive: tablet (≤900px) ───────────────────── */
+    @media (max-width: 900px) {
+      .value-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .metrics-dark__inner {
+        grid-template-columns: 1fr 1fr;
+      }
+      .metric-dark:nth-child(2) { border-right: none; }
+      .metric-dark:nth-child(3) { border-top: 1px solid var(--rule); }
+      .metric-dark:nth-child(4) { border-top: 1px solid var(--rule); border-right: none; }
+
+      .about-dark__inner {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+      .about-dark__left { position: static; }
+
+      .contact-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2.5rem;
+      }
+    }
+
+    /* ── Responsive: mobile (≤640px) ───────────────────── */
+    @media (max-width: 640px) {
+      /* Nav: show hamburger */
+      .nav__links { display: none; }
+      .nav__hamburger { display: flex; }
+
+      /* Hero */
+      .hero__sub { font-size: 1rem; }
+      .hero__actions { flex-direction: column; align-items: flex-start; }
+
+      /* Value grid → single column, all 4 cards stacked */
+      .value-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0;
+      }
+      .value-card {
+        padding: 1.5rem 0;
+        border-top: 1px solid rgba(0,0,0,0.14);
+        width: 100%;
+      }
+      .value-card:first-child { border-top: 2px solid var(--black); }
+
+      /* Metrics → 2-up */
+      .metrics-dark__inner { grid-template-columns: 1fr 1fr; }
+
+      /* Carousel */
+      .carousel-viewport { padding: 0 4vw; }
+      .carousel-card { flex: 0 0 90vw; }
+      .carousel-card__body { padding: 1.25rem 1.25rem 1.5rem; }
+      .carousel-card__title { font-size: 1.1rem; }
+      .carousel-card__desc { font-size: 0.92rem; }
+
+      /* About / interests */
+      .interests-stack { gap: 0; }
+
+      /* Password gate form */
+      .work-gate__form { flex-direction: column; }
+      .work-gate__input { min-width: 0; width: 100%; }
+      .work-gate__submit { width: 100%; text-align: center; justify-content: center; }
+
+      /* Contact */
+      .contact__link { width: 100%; text-align: center; justify-content: center; }
+      .contact-inner { gap: 2rem; }
+
+      /* Footer */
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
   </style>
-  <script>
-    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-  </script>
-  <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 
@@ -495,11 +583,19 @@
       <a href="#" class="nav__logo">Marina Beric</a>
       <ul class="nav__links">
         <li><a href="#workGate" id="navWorkLink" onclick="scrollToWork(event)">Work</a></li>
-        <li><a href="#">About</a></li>
+        <li><a href="#about">About</a></li>
         <li><a href="#contact" class="nav__cta">Contact</a></li>
       </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </nav>
+  <div class="nav__mobile-menu" id="mobileMenu">
+    <a href="#workGate" onclick="scrollToWork(event); closeMenu();">Work</a>
+    <a href="#about" onclick="closeMenu()">About</a>
+    <a href="#contact" onclick="closeMenu()">Contact</a>
+  </div>
 
   <!-- Hero -->
   <section class="hero">
@@ -513,7 +609,7 @@
       </p>
       <div class="hero__actions">
         <a href="#workGate" class="btn-primary" id="heroWorkBtn" onclick="scrollToWork(event)">View Work →</a>
-        <a href="#" class="btn-ghost">Connect on LinkedIn ↗</a>
+        <a href="https://linkedin.com/in/marinaberic" target="_blank" rel="noopener noreferrer" class="btn-ghost">Connect on LinkedIn ↗</a>
       </div>
     </div>
   </section>
@@ -551,69 +647,56 @@
   <section class="carousel-section" aria-label="Selected Work">
     <div class="carousel-header">
       <p class="carousel-label">Selected Work</p>
-      <div class="carousel-controls" role="group" aria-label="Carousel controls">
-        <button class="ctrl-btn" id="prevBtn" aria-label="Previous project">&#8592;</button>
-        <button class="ctrl-btn" id="nextBtn" aria-label="Next project">&#8594;</button>
-        <button class="ctrl-pause" id="pauseBtn" aria-pressed="false" aria-label="Pause auto-advance">Pause</button>
-      </div>
     </div>
 
-    <div class="carousel-viewport">
+    <div class="carousel-viewport" id="carouselViewport">
       <div class="carousel-track" id="carouselTrack" aria-live="polite">
 
-        <a href="work/spoton.html" class="carousel-card is-active" aria-label="Case study 1 of 3: SpotOn Express Point of Sale System">
+        <a href="work/spoton.html" class="carousel-card is-active" aria-label="SpotOn Express Point of Sale System">
           <div class="carousel-card__img img-spoton"></div>
           <div class="carousel-card__body">
             <p class="carousel-card__num">01 / 03</p>
             <p class="carousel-card__title">Scaling SpotOn Express Point of Sale System</p>
             <p class="carousel-card__desc">Led design across the Express POS platform through a strategic pivot, aligning a fragmented org and shipping work that scaled from alpha to GA.</p>
-            <div class="carousel-card__tags">
-              <span class="ctag ctag--co">SpotOn</span>
-              <span class="ctag">Fintech</span>
-              <span class="ctag">Hardware + Software</span>
-              <span class="ctag">2024–Present</span>
-            </div>
             <span class="carousel-card__cta">View Case Study →</span>
           </div>
         </a>
 
-        <div class="carousel-card" role="article" aria-label="Case study 2 of 3: Scaling Card Acquisitions at Capital One">
+        <div class="carousel-card" role="article" aria-label="Scaling Card Acquisitions at Capital One">
           <div class="carousel-card__img img-c1-real"></div>
           <div class="carousel-card__body">
             <p class="carousel-card__num">02 / 03</p>
             <p class="carousel-card__title">Scaling Card Acquisitions at Capital One</p>
             <p class="carousel-card__desc">Addressed low conversion rates across credit card acquisition funnels. $100MM+ in attributable revenue impact over six years.</p>
-            <div class="carousel-card__tags">
-              <span class="ctag ctag--co">Capital One</span>
-              <span class="ctag">Fintech</span>
-              <span class="ctag">Conversion</span>
-            </div>
-            <span class="carousel-card__cta carousel-card__cta--request">Coming Soon</span>
+            <span class="carousel-card__coming-soon">Coming Soon</span>
           </div>
         </div>
 
-        <div class="carousel-card" role="article" aria-label="Case study 3 of 3: Design-Led Personalization at Capital One">
+        <div class="carousel-card" role="article" aria-label="Design-Led Personalization at Capital One">
           <div class="carousel-card__img img-guide-real"></div>
           <div class="carousel-card__body">
             <p class="carousel-card__num">03 / 03</p>
             <p class="carousel-card__title">Design-Led Personalization at Capital One</p>
             <p class="carousel-card__desc">Personalized the credit card application journey based on customer behavior and financial profile, driving 500K+ new accounts per year.</p>
-            <div class="carousel-card__tags">
-              <span class="ctag ctag--co">Capital One</span>
-              <span class="ctag">Personalization</span>
-              <span class="ctag">Research</span>
-            </div>
-            <span class="carousel-card__cta carousel-card__cta--request">Coming Soon</span>
+            <span class="carousel-card__coming-soon">Coming Soon</span>
           </div>
         </div>
 
       </div>
     </div>
 
-    <div class="carousel-dots" role="tablist" aria-label="Carousel position">
-      <button class="dot is-active" role="tab" aria-selected="true"  aria-label="Project 1" data-index="0"></button>
-      <button class="dot"           role="tab" aria-selected="false" aria-label="Project 2" data-index="1"></button>
-      <button class="dot"           role="tab" aria-selected="false" aria-label="Project 3" data-index="2"></button>
+    <!-- Dots + controls centered below carousel -->
+    <div class="carousel-footer">
+      <div class="carousel-dots" role="tablist" aria-label="Carousel position">
+        <button class="dot is-active" role="tab" aria-selected="true"  aria-label="Project 1" data-index="0"></button>
+        <button class="dot"           role="tab" aria-selected="false" aria-label="Project 2" data-index="1"></button>
+        <button class="dot"           role="tab" aria-selected="false" aria-label="Project 3" data-index="2"></button>
+      </div>
+      <div class="carousel-controls" role="group" aria-label="Carousel controls">
+        <button class="ctrl-btn" id="prevBtn" aria-label="Previous project">&#8592;</button>
+        <button class="ctrl-btn" id="nextBtn" aria-label="Next project">&#8594;</button>
+        <button class="ctrl-pause" id="pauseBtn" aria-pressed="false" aria-label="Pause auto-advance">Pause</button>
+      </div>
     </div>
   </section>
 
@@ -668,7 +751,7 @@
   </section>
 
   <!-- Outside the Work -->
-  <section class="about-dark">
+  <section class="about-dark" id="about">
     <div class="about-dark__inner">
       <div class="about-dark__left">
         <p class="about-dark__eyebrow">Outside the Work</p>
@@ -679,19 +762,19 @@
       <div class="interests-stack">
         <div class="interest-item">
           <p class="interest-item__title">Listening</p>
-          <p class="interest-item__text">I stay informed on global news, industry trends, and developments in AI and design through Fast Company Design, Hidden Brain, Design Better, NPR News Now, NPR Technology, The Economist, and Forbes.</p>
+          <p class="interest-item__text">I rely on a mix of sources to stay up-to-date on global news, industry trends, and what's happening in AI and design. My regular rotation includes Fast Company Design, Hidden Brain, Design Better, NPR News Now, NPR Technology, The Economist, and Forbes.</p>
         </div>
         <div class="interest-item">
           <p class="interest-item__title">Reading</p>
-          <p class="interest-item__text">Fiction, historical fiction, memoirs, and fantasy. My 2026 picks so far: Go as a River and The Heaven and Earth Grocery Store.</p>
+          <p class="interest-item__text">When I'm not catching up on design trends or industry news, I love diving into fiction. My go-to genres are historical fiction, memoirs, and fantasy. My 2026 top picks so far are Go as a River and The Heaven and Earth Grocery Store.</p>
         </div>
         <div class="interest-item">
           <p class="interest-item__title">Obsessing</p>
-          <p class="interest-item__text">I started using ChatGPT the day it launched. Today my daily toolkit includes Claude, Figma Make, Vercel, Perplexity, and Granola. I'm eager to keep exploring how generative AI evolves and how we integrate it into everyday life.</p>
+          <p class="interest-item__text">I've been obsessed with AI since ChatGPT launched. Today my daily toolkit includes Claude, Figma Make, Vercel, Perplexity, and Granola. I'm eager to keep exploring how generative AI evolves and how we integrate it into everyday life.</p>
         </div>
         <div class="interest-item">
           <p class="interest-item__title">Moving</p>
-          <p class="interest-item__text">I stay active away from my desk. I practice vinyasa yoga and play in a community pickleball league. I take pottery classes, sew my own clothes and home goods, and have performed with an improv troupe in Chicago's Second City.</p>
+          <p class="interest-item__text">Away from my desk, I practice vinyasa yoga and play in a community pickleball league. I take pottery classes, sew my own clothes and home goods, and have performed with an improv troupe at Chicago's Second City.</p>
         </div>
       </div>
     </div>
@@ -715,8 +798,10 @@
 
   <script>
     // ── Password Gate ───────────────────────────────────────────
+    // Calls the server-side /api/auth endpoint so that a secure
+    // HttpOnly cookie is set. This means case study pages are also
+    // unlocked immediately after the user authenticates here.
     (function() {
-      const PASSWORD   = 'Marina2026'; // Marina: change this to your chosen password
       const AUTH_KEY   = 'mb_portfolio_auth';
       const gate       = document.getElementById('workGate');
       const protected_ = document.getElementById('workProtected');
@@ -732,17 +817,38 @@
         initCarousel();
       }
 
-      function tryUnlock() {
-        if (input.value === PASSWORD) {
-          unlock();
-        } else {
+      async function tryUnlock() {
+        const password = input.value.trim();
+        if (!password) return;
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Checking…';
+        errorMsg.classList.remove('visible');
+
+        try {
+          const res = await fetch('/api/auth', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password })
+          });
+
+          if (res.ok) {
+            unlock(); // cookie is now set server-side
+          } else {
+            errorMsg.classList.add('visible');
+            input.value = '';
+            input.focus();
+          }
+        } catch {
+          errorMsg.textContent = 'Something went wrong. Please try again.';
           errorMsg.classList.add('visible');
-          input.focus();
-          input.select();
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'View Work';
         }
       }
 
-      // Check existing session
+      // Check existing session (fast path — avoids a round-trip on reload)
       if (sessionStorage.getItem(AUTH_KEY) === 'true') {
         unlock();
       }
@@ -752,73 +858,152 @@
       input.addEventListener('input', () => errorMsg.classList.remove('visible'));
     })();
 
-    // ── Carousel ────────────────────────────────────────────────
+    // ── Carousel — infinite loop + touch swipe ───────────────────
     function initCarousel() {
+      const viewport = document.getElementById('carouselViewport');
       const track    = document.getElementById('carouselTrack');
-      const cards    = Array.from(track.querySelectorAll('.carousel-card'));
+      const realCards = Array.from(track.querySelectorAll('.carousel-card'));
       const dots     = Array.from(document.querySelectorAll('.dot'));
       const prevBtn  = document.getElementById('prevBtn');
       const nextBtn  = document.getElementById('nextBtn');
       const pauseBtn = document.getElementById('pauseBtn');
 
-      let current   = 0;
-      let paused    = false;
-      let timer     = null;
+      const N        = realCards.length;
+      let current    = 0;   // index into realCards (0-based)
+      let pos        = 1;   // track position: 0=cloneLast, 1..N=real, N+1=cloneFirst
+      let paused     = false;
+      let animating  = false;
+      let timer      = null;
       const INTERVAL = 5000;
-      const GAP      = 24; // px, matches clamp mid-value
 
-      function getCardWidth() {
-        return cards[0].getBoundingClientRect().width;
+      // Clone first and last cards for seamless infinite loop
+      const cloneFirst = realCards[0].cloneNode(true);
+      const cloneLast  = realCards[N - 1].cloneNode(true);
+      [cloneFirst, cloneLast].forEach(c => {
+        c.setAttribute('aria-hidden', 'true');
+        c.classList.remove('is-active');
+      });
+      track.appendChild(cloneFirst);           // after last real card
+      track.insertBefore(cloneLast, realCards[0]); // before first real card
+      // DOM order: [cloneLast, card0, card1, card2, cloneFirst]
+      // Positions:  0          1      2      3      4
+
+      function getGap() {
+        return parseFloat(getComputedStyle(track).columnGap) || 24;
+      }
+      function getCardW() {
+        return realCards[0].getBoundingClientRect().width;
       }
 
-      function goTo(index) {
-        current = (index + cards.length) % cards.length;
-        const offset = current * (getCardWidth() + GAP);
+      function slideTo(targetPos, animate) {
+        const offset = targetPos * (getCardW() + getGap());
+        track.style.transition = animate
+          ? 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)'
+          : 'none';
         track.style.transform = `translateX(-${offset}px)`;
-        cards.forEach((c, i) => {
-          c.classList.toggle('is-active', i === current);
-          c.setAttribute('tabindex', i === current ? '0' : '-1');
-        });
+        pos = targetPos;
+      }
+
+      // After animation: if we landed on a clone, silently jump to the real card
+      track.addEventListener('transitionend', () => {
+        if (pos === 0) {
+          slideTo(N, false);       // cloneLast → real last card
+        } else if (pos === N + 1) {
+          slideTo(1, false);       // cloneFirst → real first card
+        }
+        animating = false;
+      });
+
+      function updateUI() {
+        realCards.forEach((c, i) => c.classList.toggle('is-active', i === current));
         dots.forEach((d, i) => {
           d.classList.toggle('is-active', i === current);
           d.setAttribute('aria-selected', String(i === current));
         });
       }
 
+      function advance(dir) {
+        if (animating) return;
+        animating = true;
+        pos += dir;
+        // Map pos to real index
+        if (pos === 0)     current = N - 1;      // cloneLast shows last card
+        else if (pos === N + 1) current = 0;     // cloneFirst shows first card
+        else current = pos - 1;
+        slideTo(pos, true);
+        updateUI();
+      }
+
+      function goTo(realIdx) {
+        if (animating) return;
+        animating = true;
+        current = realIdx;
+        pos = realIdx + 1;
+        slideTo(pos, true);
+        updateUI();
+        // transitionend will clear animating
+      }
+
       function startTimer() {
         clearInterval(timer);
-        if (!paused) timer = setInterval(() => goTo(current + 1), INTERVAL);
+        if (!paused) timer = setInterval(() => { advance(1); }, INTERVAL);
       }
 
       function togglePause() {
         paused = !paused;
         pauseBtn.setAttribute('aria-pressed', String(paused));
         pauseBtn.textContent = paused ? 'Play' : 'Pause';
-        if (paused) clearInterval(timer); else startTimer();
+        paused ? clearInterval(timer) : startTimer();
       }
 
-      prevBtn.addEventListener('click', () => { goTo(current - 1); startTimer(); });
-      nextBtn.addEventListener('click', () => { goTo(current + 1); startTimer(); });
+      prevBtn.addEventListener('click',  () => { advance(-1); startTimer(); });
+      nextBtn.addEventListener('click',  () => { advance(1);  startTimer(); });
       pauseBtn.addEventListener('click', togglePause);
       dots.forEach(d => d.addEventListener('click', () => {
         goTo(parseInt(d.dataset.index));
         startTimer();
       }));
 
-      // Keyboard: left/right arrows when focused on track area
+      // ── Touch / swipe support ──────────────────────────────────
+      let touchStartX = null, touchStartY = null;
+      viewport.addEventListener('touchstart', e => {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+      viewport.addEventListener('touchend', e => {
+        if (touchStartX === null) return;
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        const dy = e.changedTouches[0].clientY - touchStartY;
+        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 44) {
+          advance(dx < 0 ? 1 : -1);
+          startTimer();
+        }
+        touchStartX = touchStartY = null;
+      }, { passive: true });
+
+      // Pause on desktop hover
+      const section = track.closest('.carousel-section');
+      section.addEventListener('mouseenter', () => { if (!paused) clearInterval(timer); });
+      section.addEventListener('mouseleave', () => { if (!paused) startTimer(); });
+
+      // Keyboard navigation
       document.addEventListener('keydown', e => {
         if (e.target.closest('.carousel-section')) {
-          if (e.key === 'ArrowLeft')  { goTo(current - 1); startTimer(); }
-          if (e.key === 'ArrowRight') { goTo(current + 1); startTimer(); }
+          if (e.key === 'ArrowLeft')  { advance(-1); startTimer(); }
+          if (e.key === 'ArrowRight') { advance(1);  startTimer(); }
         }
       });
 
-      // Pause on hover
-      track.closest('.carousel-section').addEventListener('mouseenter', () => { if (!paused) clearInterval(timer); });
-      track.closest('.carousel-section').addEventListener('mouseleave', () => { if (!paused) startTimer(); });
+      // Reposition on resize (instant, no animation)
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => slideTo(pos, false), 100);
+      });
 
-      // Init
-      goTo(0);
+      // Init: start at first real card (pos=1) with no animation
+      slideTo(1, false);
+      updateUI();
       startTimer();
     }
 
@@ -830,6 +1015,40 @@
         : document.getElementById('workGate');
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     };
+
+    // ── Hamburger menu ───────────────────────────────────────────
+    (function() {
+      const burger = document.getElementById('hamburger');
+      const menu   = document.getElementById('mobileMenu');
+      if (!burger || !menu) return;
+
+      window.closeMenu = function() {
+        burger.classList.remove('open');
+        menu.classList.remove('open');
+        document.body.style.overflow = '';
+        burger.setAttribute('aria-label', 'Open menu');
+      };
+
+      burger.addEventListener('click', () => {
+        const isOpen = burger.classList.contains('open');
+        if (isOpen) {
+          closeMenu();
+        } else {
+          burger.classList.add('open');
+          menu.classList.add('open');
+          document.body.style.overflow = 'hidden';
+          burger.setAttribute('aria-label', 'Close menu');
+        }
+      });
+
+      // Close on outside tap
+      document.addEventListener('click', (e) => {
+        if (!burger.contains(e.target) && !menu.contains(e.target)) closeMenu();
+      });
+
+      // Close on scroll
+      window.addEventListener('scroll', closeMenu, { passive: true });
+    })();
   </script>
 
 </body>
