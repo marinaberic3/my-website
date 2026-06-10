@@ -123,7 +123,6 @@
       text-transform: uppercase; color: rgba(255,255,255,0.55);
     }
 
-    /* Viewport clips the track */
     .carousel-viewport {
       overflow: hidden;
       padding: 0 8vw;
@@ -137,7 +136,7 @@
     }
     .carousel-card {
       flex: 0 0 calc(84vw - 16vw);
-      max-width: 600px; /* ~1/3 smaller than original 900px */
+      max-width: 600px;
       border: 1px solid var(--rule);
       display: flex; flex-direction: column;
       overflow: hidden; flex-shrink: 0;
@@ -162,7 +161,6 @@
       width: fit-content;
     }
     .carousel-card__cta:hover { border-color: var(--white); }
-    /* Coming soon — prominent, visible badge */
     .carousel-card__coming-soon {
       display: inline-flex; align-items: center;
       font-size: 0.78rem; font-weight: 700; letter-spacing: 0.14em;
@@ -191,7 +189,6 @@
       color: rgba(255,255,255,0.82); max-width: 60ch;
     }
 
-    /* Dots + controls — centered below carousel */
     .carousel-footer {
       display: flex; flex-direction: column;
       align-items: center; gap: 1.25rem;
@@ -441,7 +438,6 @@
       display: none; margin-top: -1rem;
     }
     .work-gate__error.visible { display: block; }
-    /* Protected sections hidden until auth */
     .work-protected { display: none; }
     .work-protected.unlocked { display: block; }
 
@@ -502,75 +498,37 @@
 
     /* ── Responsive: tablet (≤900px) ───────────────────── */
     @media (max-width: 900px) {
-      .value-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-      .metrics-dark__inner {
-        grid-template-columns: 1fr 1fr;
-      }
+      .value-grid { grid-template-columns: 1fr 1fr; }
+      .metrics-dark__inner { grid-template-columns: 1fr 1fr; }
       .metric-dark:nth-child(2) { border-right: none; }
       .metric-dark:nth-child(3) { border-top: 1px solid var(--rule); }
       .metric-dark:nth-child(4) { border-top: 1px solid var(--rule); border-right: none; }
-
-      .about-dark__inner {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-      }
+      .about-dark__inner { grid-template-columns: 1fr; gap: 3rem; }
       .about-dark__left { position: static; }
-
-      .contact-inner {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 2.5rem;
-      }
+      .contact-inner { flex-direction: column; align-items: flex-start; gap: 2.5rem; }
     }
 
     /* ── Responsive: mobile (≤640px) ───────────────────── */
     @media (max-width: 640px) {
-      /* Nav: show hamburger */
       .nav__links { display: none; }
       .nav__hamburger { display: flex; }
-
-      /* Hero */
       .hero__sub { font-size: 1rem; }
       .hero__actions { flex-direction: column; align-items: flex-start; }
-
-      /* Value grid → single column, all 4 cards stacked */
-      .value-grid {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 0;
-      }
-      .value-card {
-        padding: 1.5rem 0;
-        border-top: 1px solid rgba(0,0,0,0.14);
-        width: 100%;
-      }
+      .value-grid { display: flex !important; flex-direction: column !important; gap: 0; }
+      .value-card { padding: 1.5rem 0; border-top: 1px solid rgba(0,0,0,0.14); width: 100%; }
       .value-card:first-child { border-top: 2px solid var(--black); }
-
-      /* Metrics → 2-up */
       .metrics-dark__inner { grid-template-columns: 1fr 1fr; }
-
-      /* Carousel */
       .carousel-viewport { padding: 0 4vw; }
       .carousel-card { flex: 0 0 90vw; }
       .carousel-card__body { padding: 1.25rem 1.25rem 1.5rem; }
       .carousel-card__title { font-size: 1.1rem; }
       .carousel-card__desc { font-size: 0.92rem; }
-
-      /* About / interests */
       .interests-stack { gap: 0; }
-
-      /* Password gate form */
       .work-gate__form { flex-direction: column; }
       .work-gate__input { min-width: 0; width: 100%; }
       .work-gate__submit { width: 100%; text-align: center; justify-content: center; }
-
-      /* Contact */
       .contact__link { width: 100%; text-align: center; justify-content: center; }
       .contact-inner { gap: 2rem; }
-
-      /* Footer */
       footer { flex-direction: column; gap: 0.5rem; text-align: center; }
     }
   </style>
@@ -613,7 +571,6 @@
       </div>
     </div>
   </section>
-
 
   <!-- Password Gate -->
   <section class="work-gate" id="workGate">
@@ -662,15 +619,15 @@
           </div>
         </a>
 
-        <div class="carousel-card" role="article" aria-label="Scaling Card Acquisitions at Capital One">
+        <a href="work/capital-one.html" class="carousel-card" aria-label="Scaling Card Acquisitions at Capital One">
           <div class="carousel-card__img img-c1-real"></div>
           <div class="carousel-card__body">
             <p class="carousel-card__num">02 / 03</p>
             <p class="carousel-card__title">Scaling Card Acquisitions at Capital One</p>
             <p class="carousel-card__desc">Addressed low conversion rates across credit card acquisition funnels. $100MM+ in attributable revenue impact over six years.</p>
-            <span class="carousel-card__coming-soon">Coming Soon</span>
+            <span class="carousel-card__cta">View Case Study →</span>
           </div>
-        </div>
+        </a>
 
         <div class="carousel-card" role="article" aria-label="Design-Led Personalization at Capital One">
           <div class="carousel-card__img img-guide-real"></div>
@@ -798,9 +755,6 @@
 
   <script>
     // ── Password Gate ───────────────────────────────────────────
-    // Calls the server-side /api/auth endpoint so that a secure
-    // HttpOnly cookie is set. This means case study pages are also
-    // unlocked immediately after the user authenticates here.
     (function() {
       const AUTH_KEY   = 'mb_portfolio_auth';
       const gate       = document.getElementById('workGate');
@@ -833,7 +787,7 @@
           });
 
           if (res.ok) {
-            unlock(); // cookie is now set server-side
+            unlock();
           } else {
             errorMsg.classList.add('visible');
             input.value = '';
@@ -848,7 +802,6 @@
         }
       }
 
-      // Check existing session (fast path — avoids a round-trip on reload)
       if (sessionStorage.getItem(AUTH_KEY) === 'true') {
         unlock();
       }
@@ -858,7 +811,7 @@
       input.addEventListener('input', () => errorMsg.classList.remove('visible'));
     })();
 
-    // ── Carousel — infinite loop + touch swipe ───────────────────
+    // ── Carousel ─────────────────────────────────────────────────
     function initCarousel() {
       const viewport = document.getElementById('carouselViewport');
       const track    = document.getElementById('carouselTrack');
@@ -869,24 +822,21 @@
       const pauseBtn = document.getElementById('pauseBtn');
 
       const N        = realCards.length;
-      let current    = 0;   // index into realCards (0-based)
-      let pos        = 1;   // track position: 0=cloneLast, 1..N=real, N+1=cloneFirst
+      let current    = 0;
+      let pos        = 1;
       let paused     = false;
       let animating  = false;
       let timer      = null;
       const INTERVAL = 5000;
 
-      // Clone first and last cards for seamless infinite loop
       const cloneFirst = realCards[0].cloneNode(true);
       const cloneLast  = realCards[N - 1].cloneNode(true);
       [cloneFirst, cloneLast].forEach(c => {
         c.setAttribute('aria-hidden', 'true');
         c.classList.remove('is-active');
       });
-      track.appendChild(cloneFirst);           // after last real card
-      track.insertBefore(cloneLast, realCards[0]); // before first real card
-      // DOM order: [cloneLast, card0, card1, card2, cloneFirst]
-      // Positions:  0          1      2      3      4
+      track.appendChild(cloneFirst);
+      track.insertBefore(cloneLast, realCards[0]);
 
       function getGap() {
         return parseFloat(getComputedStyle(track).columnGap) || 24;
@@ -904,12 +854,11 @@
         pos = targetPos;
       }
 
-      // After animation: if we landed on a clone, silently jump to the real card
       track.addEventListener('transitionend', () => {
         if (pos === 0) {
-          slideTo(N, false);       // cloneLast → real last card
+          slideTo(N, false);
         } else if (pos === N + 1) {
-          slideTo(1, false);       // cloneFirst → real first card
+          slideTo(1, false);
         }
         animating = false;
       });
@@ -926,9 +875,8 @@
         if (animating) return;
         animating = true;
         pos += dir;
-        // Map pos to real index
-        if (pos === 0)     current = N - 1;      // cloneLast shows last card
-        else if (pos === N + 1) current = 0;     // cloneFirst shows first card
+        if (pos === 0)     current = N - 1;
+        else if (pos === N + 1) current = 0;
         else current = pos - 1;
         slideTo(pos, true);
         updateUI();
@@ -941,7 +889,6 @@
         pos = realIdx + 1;
         slideTo(pos, true);
         updateUI();
-        // transitionend will clear animating
       }
 
       function startTimer() {
@@ -964,7 +911,6 @@
         startTimer();
       }));
 
-      // ── Touch / swipe support ──────────────────────────────────
       let touchStartX = null, touchStartY = null;
       viewport.addEventListener('touchstart', e => {
         touchStartX = e.touches[0].clientX;
@@ -981,12 +927,10 @@
         touchStartX = touchStartY = null;
       }, { passive: true });
 
-      // Pause on desktop hover
       const section = track.closest('.carousel-section');
       section.addEventListener('mouseenter', () => { if (!paused) clearInterval(timer); });
       section.addEventListener('mouseleave', () => { if (!paused) startTimer(); });
 
-      // Keyboard navigation
       document.addEventListener('keydown', e => {
         if (e.target.closest('.carousel-section')) {
           if (e.key === 'ArrowLeft')  { advance(-1); startTimer(); }
@@ -994,20 +938,17 @@
         }
       });
 
-      // Reposition on resize (instant, no animation)
       let resizeTimer;
       window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => slideTo(pos, false), 100);
       });
 
-      // Init: start at first real card (pos=1) with no animation
       slideTo(1, false);
       updateUI();
       startTimer();
     }
 
-    // Scroll to work: if unlocked, go to protected content; else go to gate
     window.scrollToWork = function(e) {
       e.preventDefault();
       const target = document.getElementById('workProtected').classList.contains('unlocked')
@@ -1041,15 +982,14 @@
         }
       });
 
-      // Close on outside tap
       document.addEventListener('click', (e) => {
         if (!burger.contains(e.target) && !menu.contains(e.target)) closeMenu();
       });
 
-      // Close on scroll
       window.addEventListener('scroll', closeMenu, { passive: true });
     })();
   </script>
 
+  <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
