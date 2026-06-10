@@ -1,54 +1,808 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Capital One | Marina Beric</title>
-  <meta name="robots" content="noindex, nofollow" />
-  <link rel="icon" href="../favicon.ico" sizes="any" />
-  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
-  <link rel="apple-touch-icon" href="../favicon-32.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../css/style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capital One Pre-Approval — Marina Beric</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg-page:   #ffffff;
+    --bg-alt:    #ffffff;
+    --bg-mid:    #f7f4f1;
+    --text-pri:  #1a1208;
+    --text-body: #444444;
+    --text-muted:#8a7a6e;
+    --accent:    #c4503a;
+    --rule:      #e0dbd6;
+    --serif:     'Cormorant Garamond', Georgia, serif;
+    --sans:      'Inter', 'Helvetica Neue', sans-serif;
+  }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg-page);
+    color: var(--text-pri);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  /* ── PASSWORD GATE (stays dark) ── */
+  #gate {
+    position: fixed; inset: 0; z-index: 200;
+    background: #100a06;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 0;
+  }
+  .gate-logo {
+    font-family: var(--serif); font-size: 26px; font-weight: 400;
+    letter-spacing: .06em; color: #f0e8de;
+    margin-bottom: 48px;
+  }
+  .gate-label {
+    font-size: 11px; font-weight: 600; letter-spacing: .14em;
+    text-transform: uppercase; color: #8a7a6e; margin-bottom: 16px;
+  }
+  .gate-form { display: flex; flex-direction: column; gap: 12px; width: 320px; }
+  .gate-input {
+    width: 100%; padding: 14px 16px;
+    background: rgba(240,232,222,.06);
+    border: 1px solid rgba(240,232,222,0.18);
+    border-radius: 4px;
+    color: #f0e8de; font-family: var(--sans);
+    font-size: 16px; letter-spacing: .04em;
+    outline: none; transition: border-color .2s;
+  }
+  .gate-input:focus { border-color: rgba(240,232,222,.4); }
+  .gate-input::placeholder { color: #8a7a6e; }
+  .gate-btn {
+    padding: 14px; background: var(--accent); border: none;
+    border-radius: 4px; color: #fff; font-family: var(--sans);
+    font-size: 14px; font-weight: 600; letter-spacing: .06em;
+    text-transform: uppercase; cursor: pointer; transition: background .2s;
+  }
+  .gate-btn:hover { background: #b03d2a; }
+  .gate-error {
+    font-size: 13px; color: #e05a4a; text-align: center;
+    min-height: 18px; margin-top: 4px;
+  }
+
+  /* ── SITE ── */
+  #site { display: none; }
+
+  /* ── NAV ── */
+  .site-nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 80px; height: 72px;
+    background: rgba(255,255,255,.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-logo {
+    font-family: var(--serif); font-size: 20px; font-weight: 400;
+    letter-spacing: .04em; color: var(--text-pri); text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a {
+    font-size: 13px; font-weight: 500; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--text-muted); text-decoration: none;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--text-pri); }
+
+  /* ── BACK LINK ── */
+  .back-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 28px 80px 0;
+    font-size: 13px; font-weight: 600; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--text-muted);
+    text-decoration: none; transition: color .2s;
+  }
+  .back-link:hover { color: var(--text-pri); }
+  .back-link svg { transition: transform .2s; }
+  .back-link:hover svg { transform: translateX(-3px); }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 56px 80px 80px;
+    background: var(--bg-page);
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-label {
+    font-size: 13px; font-weight: 600; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 28px;
+  }
+  .hero-title {
+    font-family: var(--serif); font-size: clamp(52px,6vw,92px);
+    font-weight: 300; line-height: 1.0; letter-spacing: -.02em;
+    color: var(--text-pri); max-width: 860px; margin-bottom: 40px;
+  }
+  .hero-subtitle {
+    font-size: 18px; font-weight: 400; line-height: 1.7;
+    color: var(--text-muted); max-width: 640px; margin-bottom: 60px;
+  }
+  .hero-cover {
+    width: 100%; max-width: 1100px;
+    aspect-ratio: 16/9;
+    border-radius: 4px; overflow: hidden;
+    border: 1px solid var(--rule);
+    background: var(--bg-alt);
+    position: relative;
+  }
+  .hero-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-cover-placeholder {
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, #1c140d 0%, #2a1e14 30%, #3a2818 60%, #251a11 100%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-cover-placeholder .ph-label {
+    font-size: 11px; font-weight: 600; letter-spacing: .14em;
+    text-transform: uppercase; color: rgba(240,232,222,.25);
+  }
+
+  /* ── SHARED SECTION LAYOUT ── */
+  .section { padding: 80px; border-bottom: 1px solid var(--rule); }
+  .section.alt { background: var(--bg-alt); }
+  .section.mid { background: var(--bg-mid); }
+
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+
+  .two-col {
+    display: grid; grid-template-columns: 240px 1fr;
+    gap: 60px; align-items: start;
+  }
+  .col-label {
+    font-size: 13px; font-weight: 600; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--text-muted); padding-top: 5px;
+  }
+
+  /* ── SECTION DIVIDER (replaces dark phase headers) ── */
+  .section-divider {
+    background: var(--bg-mid);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 20px 80px;
+    display: flex; align-items: center; gap: 24px;
+  }
+  .divider-title {
+    font-family: var(--sans); font-size: 22px; font-weight: 700;
+    color: var(--text-pri); letter-spacing: -.01em; white-space: nowrap;
+  }
+  .divider-line { flex: 1; height: 1px; background: var(--rule); }
+
+  /* ── TYPOGRAPHY ── */
+  .heading-lg {
+    font-family: var(--serif); font-size: 42px; font-weight: 400;
+    line-height: 1.1; letter-spacing: -.02em; color: var(--text-pri);
+    margin-bottom: 28px;
+  }
+  .body-text { font-size: 17px; font-weight: 400; line-height: 1.75; color: var(--text-body); }
+  .body-text + .body-text { margin-top: 20px; }
+
+  .overline {
+    font-size: 13px; font-weight: 600; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 20px; display: block;
+  }
+
+  /* ── SKILLS GRID ── */
+  .skills-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px 40px;
+    margin-top: 12px;
+  }
+  .skill-item {
+    font-size: 16px; font-weight: 500; color: var(--text-pri);
+    padding-left: 14px; border-left: 2px solid var(--rule);
+    line-height: 1.5;
+  }
+
+  /* ── RULE ── */
+  hr.rule { border: none; border-top: 1px solid var(--rule); margin: 48px 0; }
+
+  /* ── STRATEGY PILLARS ── */
+  .pillars-grid {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 24px; margin-top: 12px;
+  }
+  .pillar {
+    background: var(--bg-page); border: 1px solid var(--rule);
+    border-radius: 4px; padding: 28px;
+  }
+  .pillar-icon {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(196,80,58,.1);
+    display: flex; align-items: center; justify-content: center; margin-bottom: 16px;
+  }
+  .pillar-icon svg { stroke: var(--accent); fill: none; }
+  .pillar-title {
+    font-family: var(--serif); font-size: 26px; font-weight: 400;
+    color: var(--text-pri); letter-spacing: -.01em; margin-bottom: 14px;
+  }
+  .pillar-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .pillar-list li {
+    font-size: 16px; color: var(--text-body); line-height: 1.55;
+    padding-left: 14px; position: relative;
+  }
+  .pillar-list li::before {
+    content: '•'; position: absolute; left: 0;
+    color: var(--accent); font-size: 16px; line-height: 1.4;
+  }
+
+  /* ── IMAGE BLOCKS ── */
+  .img-block { margin-top: 48px; }
+  .img-block img {
+    width: 100%; display: block;
+    border-radius: 4px;
+  }
+  .img-caption {
+    font-size: 15px; color: var(--text-muted); margin-top: 12px;
+    font-style: italic; text-align: center; letter-spacing: .01em;
+  }
+
+  /* ── KPI STRIP ── */
+  .kpi-strip {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 1px; background: var(--rule);
+    border: 1px solid var(--rule); border-radius: 4px;
+    overflow: hidden; margin-bottom: 56px;
+  }
+  .kpi { background: var(--bg-page); padding: 28px 24px; }
+  .kpi-label {
+    font-size: 13px; font-weight: 600; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px;
+  }
+  .kpi-value {
+    font-family: var(--serif); font-size: 36px; font-weight: 400;
+    color: var(--accent); line-height: 1;
+  }
+  .kpi-desc { font-size: 16px; color: var(--text-body); margin-top: 6px; line-height: 1.55; }
+
+  /* ── EXPERIMENT BLOCKS ── */
+  .experiment {
+    display: grid; grid-template-columns: 360px 1fr;
+    gap: 60px; align-items: center;
+    padding: 56px 0;
+  }
+  .experiment + .experiment { border-top: 1px solid var(--rule); }
+  .experiment.reverse { grid-template-columns: 1fr 360px; }
+  .experiment.reverse .exp-image { order: 2; }
+  .experiment.reverse .exp-body { order: 1; }
+
+  /* WHITE background on experiment images */
+  .exp-image {
+    border-radius: 4px; overflow: hidden;
+    background: #ffffff;
+  }
+  .exp-image img { width: 100%; display: block; }
+
+  .exp-number {
+    font-size: 13px; font-weight: 700; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 16px; display: block;
+  }
+  .exp-title {
+    font-family: var(--serif); font-size: 30px; font-weight: 400;
+    line-height: 1.1; letter-spacing: -.01em;
+    color: var(--text-pri); margin-bottom: 20px;
+  }
+  .exp-label {
+    font-size: 13px; font-weight: 600; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--text-muted);
+    margin-bottom: 8px; display: block;
+  }
+  .exp-text { font-size: 17px; line-height: 1.75; color: var(--text-body); margin-bottom: 24px; }
+  .exp-result {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 14px 18px;
+    background: rgba(196,80,58,.06);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 4px 4px 0;
+  }
+  .exp-result-label {
+    font-size: 13px; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--accent); flex-shrink: 0; padding-top: 2px;
+  }
+  .exp-result-text { font-size: 16px; color: var(--text-body); line-height: 1.65; }
+
+  /* ── RESEARCH GRID ── */
+  .research-grid { display: flex; flex-direction: column; gap: 40px; margin-top: 40px; }
+  .research-item { display: flex; flex-direction: column; gap: 14px; }
+  .research-img {
+    width: 100%; display: block;
+    border-radius: 4px;
+  }
+  .research-caption { font-size: 15px; color: var(--text-muted); text-align: center; line-height: 1.6; font-style: italic; }
+
+  /* ── LEADERSHIP ARTIFACTS ── */
+  .artifact { margin-bottom: 64px; }
+  .artifact:last-child { margin-bottom: 0; }
+  .artifact-header {
+    display: grid; grid-template-columns: 240px 1fr;
+    gap: 60px; align-items: start; margin-bottom: 28px;
+  }
+  .artifact-number {
+    font-size: 13px; font-weight: 700; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 10px; display: block;
+  }
+  .artifact-title {
+    font-family: var(--serif); font-size: 26px; font-weight: 400;
+    color: var(--text-pri); letter-spacing: -.01em; line-height: 1.2;
+    margin-bottom: 14px;
+  }
+  .artifact-body { font-size: 17px; line-height: 1.75; color: var(--text-body); }
+  .artifact-img {
+    width: 130%; margin-left: -15%;
+    border-radius: 4px; display: block;
+  }
+
+  /* ── CONCLUSION ── */
+  .conclusion-wrap {
+    padding: 100px 80px; background: var(--bg-mid); text-align: center;
+    border-bottom: 1px solid var(--rule);
+  }
+  .conclusion-quote {
+    font-family: var(--serif); font-size: clamp(24px,3vw,38px);
+    font-weight: 300; font-style: italic; line-height: 1.4;
+    color: var(--text-pri); letter-spacing: -.01em;
+    max-width: 760px; margin: 0 auto 16px;
+  }
+  .conclusion-quote span { color: var(--accent); }
+  .conclusion-sub {
+    font-size: 17px; color: var(--text-muted); line-height: 1.75;
+    max-width: 560px; margin: 0 auto;
+  }
+
+  /* ── VARIABLES LIST ── */
+  .var-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .var-list li {
+    font-size: 16px; color: var(--text-body);
+    padding-left: 14px; border-left: 2px solid var(--rule); line-height: 1.55;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--bg-page); border-top: 1px solid var(--rule);
+    padding: 40px 80px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-logo { font-family: var(--serif); font-size: 18px; font-weight: 400; color: var(--text-muted); }
+  .footer-copy { font-size: 14px; color: var(--text-muted); }
+
+  @media (max-width: 900px) {
+    .site-nav { padding: 0 24px; }
+    .back-link { padding: 24px 24px 0; }
+    .hero, .section, .section-divider, .conclusion-wrap { padding: 48px 24px; }
+    .two-col, .experiment, .experiment.reverse, .artifact-header { grid-template-columns: 1fr; gap: 24px; }
+    .pillars-grid, .kpi-strip { grid-template-columns: 1fr; }
+    .footer { flex-direction: column; gap: 12px; text-align: center; padding: 32px 24px; }
+  }
+</style>
 </head>
 <body>
 
-  <nav class="nav">
-    <div class="wrap nav__inner">
-      <a href="../index.html" class="nav__logo">Marina Beric</a>
-      <ul class="nav__links">
-        <li><a href="../index.html#work">Work</a></li>
-        <li><a href="../index.html#about">About</a></li>
-        <li><a href="mailto:marinaberic3@gmail.com" class="nav__cta">Contact</a></li>
-      </ul>
-      <button class="nav__hamburger" id="hamburger" aria-label="Open menu">
-        <span></span><span></span><span></span>
-      </button>
+<!-- ── PASSWORD GATE ── -->
+<div id="gate">
+  <p class="gate-logo">Marina Beric</p>
+  <p class="gate-label">Password required</p>
+  <form class="gate-form" onsubmit="checkPass(event)">
+    <input class="gate-input" type="password" id="passInput" placeholder="Enter password" autocomplete="current-password">
+    <button class="gate-btn" type="submit">Enter</button>
+    <p class="gate-error" id="gateError"></p>
+  </form>
+</div>
+
+<!-- ── SITE ── -->
+<div id="site">
+
+<nav class="site-nav">
+  <a href="#" class="nav-logo">Marina Beric</a>
+  <ul class="nav-links">
+    <li><a href="#">Work</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</nav>
+
+<a href="#" class="back-link">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 3L5 8l5 5"/></svg>
+  Back to Work
+</a>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <p class="hero-label">Design Management Case Study</p>
+  <h1 class="hero-title">Capital One Credit Card Pre-Approval Experience</h1>
+  <p class="hero-subtitle">As the Senior Manager of the Acquisition Experience Design team, I led a team of UX, UI, and Content designers and collaborated with Tech, Product, and Marketing partners to deliver strong business results in credit card Acquisitions and transform the user experience with human-centered design.</p>
+
+  <div class="hero-cover">
+    <!--
+      REPLACE WITH REAL COVER IMAGE:
+      <img src="images/capital-one-cover.jpg" alt="Capital One Pre-Approval — laptop and phone showing comparison offers">
+    -->
+    <div class="hero-cover-placeholder">
+      <span class="ph-label">[ Cover image — laptop + phone ]</span>
     </div>
-  </nav>
-  <div class="nav__mobile-menu" id="mobileMenu">
-    <a href="../index.html#work">Work</a>
-    <a href="../index.html#about">About</a>
-    <a href="mailto:marinaberic3@gmail.com">Contact</a>
   </div>
+</section>
 
-  <!-- ── Coming Soon ──────────────────────────────────────────── -->
-  <section class="cs-hero">
-    <div class="wrap">
-      <div class="cs-eyebrow">
-        <a href="../index.html">← All Work</a>
-        <span class="t-label" style="color:var(--rule)">·</span>
-        <span class="t-label">Capital One</span>
+<!-- ── PROBLEM + ROLE ── -->
+<section class="section">
+  <div class="section-inner">
+
+    <div class="two-col">
+      <p class="col-label">The Problem</p>
+      <div>
+        <p class="body-text">The existing Pre-Qualification tool at Capital One was not user-centered, leading to a low conversion rate and inaccurate determinations of credit eligibility. The current tool was also considered a marketing tool rather than an application; therefore its product evolution was reactive more than strategic, and the front-end was built on a different platform than the credit decisioning capability, which created technical and business complexities.</p>
       </div>
-      <h1 class="t-display">Scaling Card Acquisitions at Capital One</h1>
-      <p class="t-body" style="max-width:52ch; margin-top:1.5rem; font-size:1.02rem; color:var(--ink-mid);">
-        This case study is coming soon.
-      </p>
     </div>
-  </section>
 
-  <script src="../js/main.js"></script>
+    <hr class="rule">
+
+    <div class="two-col">
+      <p class="col-label">My Role</p>
+      <div>
+        <p class="body-text">As Senior Manager of Experience Design, I led a cross-functional team of designers and partnered with Product, Business, Marketing and Tech to define the roadmap and priorities, align teams to shifting business goals, and deliver experiences to market for regular testing and optimization. I drove a Product Vision to enable a customer-centered application experience and generate revenue for the business.</p>
+        <span class="overline" style="margin-top: 40px;">Design Leadership Skills Applied</span>
+        <div class="skills-grid">
+          <span class="skill-item">Design Strategy Development and Execution</span>
+          <span class="skill-item">Design-Thinking and Innovation</span>
+          <span class="skill-item">Design Process and Methodology Development</span>
+          <span class="skill-item">User Research and Usability Testing</span>
+          <span class="skill-item">Stakeholder Management</span>
+          <span class="skill-item">Business Acumen and Metrics Analysis</span>
+          <span class="skill-item">Motivation and Inspiration</span>
+          <span class="skill-item">Cross-functional Collaboration and Communication</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── STRATEGY ── -->
+<div class="section-divider">
+  <span class="divider-title">My Strategy</span>
+  <div class="divider-line"></div>
+</div>
+<section class="section alt">
+  <div class="section-inner">
+    <div class="pillars-grid">
+      <div class="pillar">
+        <div class="pillar-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" stroke-width="1.5"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+        </div>
+        <h3 class="pillar-title">Understand</h3>
+        <ul class="pillar-list">
+          <li>Understand market data</li>
+          <li>Understand the user</li>
+          <li>Understand the current flows and user experience</li>
+        </ul>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" stroke-width="1.5"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </div>
+        <h3 class="pillar-title">Partner</h3>
+        <ul class="pillar-list">
+          <li>Strong communication with partners and stakeholders</li>
+          <li>Align on shared outcomes</li>
+          <li>Understand partner goals</li>
+        </ul>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+        <h3 class="pillar-title">Enable</h3>
+        <ul class="pillar-list">
+          <li>Connect my team to partners across the organization</li>
+          <li>Establish a working model</li>
+          <li>Lead user research and testing initiatives</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PARTNERING + ADDING VALUE ── -->
+<div class="section-divider">
+  <span class="divider-title">Partnering &amp; Adding Value</span>
+  <div class="divider-line"></div>
+</div>
+<section class="section">
+  <div class="section-inner">
+    <div class="two-col" style="margin-bottom: 40px;">
+      <p class="col-label">Overview</p>
+      <p class="body-text">As a design team leader, I emphasized the importance of providing immediate value and impact through partnering for quick wins while getting embedded into the Pre-Approval space. I led discussions with partners about applying the design standards set forth by the Enterprise design system, and I guided my team to create scalable designs that enabled Tech to deliver more efficiently while allowing Design to allocate more time to impactful designs.</p>
+    </div>
+    <div class="img-block">
+      <img src="https://www.figma.com/api/mcp/asset/11a7e0d4-62df-4de6-b896-fcad0068c966" alt="Capital One Pre-Approval — redesigned experience alongside original tool">
+      <p class="img-caption">Redesigned experience (new design, left) alongside original tool (right)</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── DRIVING USER RESEARCH ── -->
+<div class="section-divider">
+  <span class="divider-title">Driving User Research</span>
+  <div class="divider-line"></div>
+</div>
+<section class="section alt">
+  <div class="section-inner">
+    <div class="two-col" style="margin-bottom: 40px;">
+      <p class="col-label">Research Approach</p>
+      <div>
+        <p class="body-text">I led my team in developing hypotheses, prototypes and a testing plan for a user research study. I engaged Research leads to support on the study, and I collaborated with key stakeholders by discussing research objectives and sharing artifacts like the research brief, prototypes, and the discussion guide for continuous input.</p>
+        <p class="body-text" style="margin-top:18px;">The research enabled us to test our hypotheses about simplifying the shopping and application experience in order to learn and represent users' needs with our partners when making experience decisions.</p>
+        <p class="body-text" style="margin-top:18px;">We tested 4 prototypes with 3 variables with the goal of understanding how and when people think about eligibility in their credit card shopping journey.</p>
+
+        <div style="margin-top: 36px; display: flex; gap: 48px; flex-wrap: wrap;">
+          <div>
+            <span class="overline" style="margin-bottom:10px;">Application Format</span>
+            <ul class="var-list">
+              <li>Single-page</li>
+              <li>Multi-page</li>
+            </ul>
+          </div>
+          <div>
+            <span class="overline" style="margin-bottom:10px;">Order of Questions</span>
+            <ul class="var-list">
+              <li>Pre-Approval before Application</li>
+              <li>Pre-Approval combined with Application</li>
+            </ul>
+          </div>
+          <div>
+            <span class="overline" style="margin-bottom:10px;">Outcomes</span>
+            <ul class="var-list">
+              <li>Happy path (approval)</li>
+              <li>Unhappy path (decline)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="research-grid">
+      <div class="research-item">
+        <img class="research-img" src="https://www.figma.com/api/mcp/asset/6c6e9dfd-670e-4571-b4dd-def8dcff623d" alt="Single-page vs multi-page prototype comparison">
+        <p class="research-caption">We tested variations of user flow and task sequencing to learn whether participants prefer a single-page or multi-page experience</p>
+      </div>
+      <div class="research-item">
+        <img class="research-img" src="https://www.figma.com/api/mcp/asset/28e0ba7a-48de-4d22-8ce5-548d80176c37" alt="Pre-Approval questions separate from Application">
+        <p class="research-caption">We tested whether participants liked Pre-Approval separate or combined with a Credit Card Application</p>
+      </div>
+      <div class="research-item">
+        <img class="research-img" src="https://www.figma.com/api/mcp/asset/3a48d5de-b57b-42e0-b70a-62329c0fb0d4" alt="Happy and unhappy path outcome variations">
+        <p class="research-caption">We tested outcome page variations to learn what participants like and dislike about different outcome experiences (happy / sad path, upsell / downsell)</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── RESEARCH INSIGHTS + DESIGN STRATEGY ── -->
+<div class="section-divider">
+  <span class="divider-title">Research Insights &amp; Design Strategy</span>
+  <div class="divider-line"></div>
+</div>
+<section class="section">
+  <div class="section-inner">
+    <div class="two-col" style="margin-bottom: 40px;">
+      <p class="col-label">Synthesis</p>
+      <div>
+        <p class="body-text">Following the research, I led my Design team in research synthesis over the course of two weeks. I guided the team to consolidate the insights into a presentable format for our partners and stakeholders by providing the format and outline of the deck. I regularly reviewed the document and provided feedback to my team through individual conversations and group forums.</p>
+        <p class="body-text" style="margin-top:18px;">I created spaces to share research learnings with key stakeholders, and I emphasized big opportunities to improve the user experience that could meaningfully impact our key Acquisition success metrics.</p>
+        <p class="body-text" style="margin-top:18px;">I developed a proposal for the next steps which included bringing teams together to brainstorm opportunities based on our findings. I collaborated with business analysts to scope the highest-leverage opportunities from the brainstorm, and I gained partner buy-in to create and manage a Design-driven backlog for further Product development.</p>
+      </div>
+    </div>
+    <div class="img-block">
+      <img src="https://www.figma.com/api/mcp/asset/3c5a483e-ab1e-4a0b-acf1-954218b8ccc7" alt="Research synthesis deck — insights and design strategy">
+    </div>
+  </div>
+</section>
+
+<!-- ── HUMAN-CENTERED DESIGN: 4 EXPERIMENTS ── -->
+<div class="section-divider">
+  <span class="divider-title">Human-Centered Design — 4 Experiments</span>
+  <div class="divider-line"></div>
+</div>
+<section class="section alt">
+  <div class="section-inner">
+
+    <div style="margin-bottom: 48px;">
+      <p class="body-text">My UX design team utilized a human-centered approach, leveraging insights from rigorous user research and synthesis to inform our ideation, iteration, and development processes. Through this approach, we were able to design and produce product tests that addressed the needs and pain points of our target users while also meeting key business objectives. I guided the work by leading weekly design critiques, stakeholder reviews, and regular engineering discussions and collaboration.</p>
+    </div>
+
+    <div class="kpi-strip">
+      <div class="kpi">
+        <span class="kpi-label">Key Metric</span>
+        <span class="kpi-value">NPV ↑</span>
+        <p class="kpi-desc">Net Present Value — increased across multiple experiments</p>
+      </div>
+      <div class="kpi">
+        <span class="kpi-label">Key Metric</span>
+        <span class="kpi-value">NABs ↑</span>
+        <p class="kpi-desc">Annual incremental New Accounts Booked — improved through design changes</p>
+      </div>
+      <div class="kpi">
+        <span class="kpi-label">Key Metric</span>
+        <span class="kpi-value">Drop-off ↓</span>
+        <p class="kpi-desc">Application drop-off rate — reduced between Pre-Approval and Application</p>
+      </div>
+    </div>
+
+    <!-- Experiment 1 -->
+    <div class="experiment">
+      <div class="exp-image">
+        <img src="https://www.figma.com/api/mcp/asset/5a7bf4d9-daa6-48f1-a2ca-60e7d09381a1" alt="Celebratory moment animation — pre-approval offer screen">
+      </div>
+      <div class="exp-body">
+        <span class="exp-number">Experiment 01</span>
+        <h3 class="exp-title">Celebratory Moment in the Application Journey</h3>
+        <span class="exp-label">Hypothesis</span>
+        <p class="exp-text">Celebrating the moment an applicant receives a pre-approved offer will create excitement, build customer engagement and lead to more people continuing on to apply for a card.</p>
+        <div class="exp-result">
+          <span class="exp-result-label">Result</span>
+          <p class="exp-result-text">Increased Net Present Value (NPV), increase in annual incremental New Accounts Booked (NABs) and reduced drop-off between Pre-Approval and the Application.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Experiment 2 -->
+    <div class="experiment reverse">
+      <div class="exp-body">
+        <span class="exp-number">Experiment 02</span>
+        <h3 class="exp-title">Comparison Offer Page</h3>
+        <span class="exp-label">Hypothesis</span>
+        <p class="exp-text">Enabling applicants to easily compare features of the cards they're approved for and offering them guidance through tags and filters will help them feel confident that they're making the right choice and lead to higher acceptance rates.</p>
+        <div class="exp-result">
+          <span class="exp-result-label">Result</span>
+          <p class="exp-result-text">Increased Net Present Value (NPV), increase in annual incremental New Accounts Booked (NABs) and reduced drop-off between Pre-Approval and the Application.</p>
+        </div>
+      </div>
+      <div class="exp-image">
+        <img src="https://www.figma.com/api/mcp/asset/f4f4dee6-c933-4308-b8da-b730e6e377e6" alt="Comparison offer page — desktop and mobile lockup">
+      </div>
+    </div>
+
+    <!-- Experiment 3 -->
+    <div class="experiment">
+      <div class="exp-image">
+        <img src="https://www.figma.com/api/mcp/asset/21b91cbd-b069-4bbc-82a8-56cbad949c3a" alt="1-2-3 Application Process Stepper">
+      </div>
+      <div class="exp-body">
+        <span class="exp-number">Experiment 03</span>
+        <h3 class="exp-title">1-2-3 Application Process Stepper</h3>
+        <span class="exp-label">Hypothesis</span>
+        <p class="exp-text">Giving users more context about the Pre-Approval process, the steps, and the benefit for them will increase form submission and conversion.</p>
+        <div class="exp-result">
+          <span class="exp-result-label">Result</span>
+          <p class="exp-result-text">Increased Net Present Value (NPV) and increase in annual incremental New Accounts Booked (NABs).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Experiment 4 -->
+    <div class="experiment reverse">
+      <div class="exp-body">
+        <span class="exp-number">Experiment 04</span>
+        <h3 class="exp-title">Pre-Approval and Shortened Credit Card Application</h3>
+        <span class="exp-label">Hypothesis</span>
+        <p class="exp-text">Condensing the Pre-Approval and Application processes into a single flow will reduce drop-off on the Application.</p>
+        <div class="exp-result">
+          <span class="exp-result-label">Result</span>
+          <p class="exp-result-text">Decreased drop-off, increased NPV, and increased annual incremental NABs.</p>
+        </div>
+      </div>
+      <div class="exp-image">
+        <img src="https://www.figma.com/api/mcp/asset/596e983a-c694-4acc-9e20-d61bf03e49d0" alt="Pre-Approval and shortened combined Application flow">
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── DESIGN LEADERSHIP + TEAM ENABLEMENT ── -->
+<div class="section-divider">
+  <span class="divider-title">Design Leadership &amp; Team Enablement</span>
+  <div class="divider-line"></div>
+</div>
+<section class="section">
+  <div class="section-inner">
+
+    <div class="artifact">
+      <div class="artifact-header">
+        <div>
+          <span class="artifact-number">01</span>
+          <h3 class="artifact-title">Establishing a Successful Working Model</h3>
+        </div>
+        <p class="artifact-body">As a Design Leader, I established a successful working model for the Experience Design team that demonstrated how design can work ahead of delivery. This required building partnerships and trust with Product and Tech partners, and educating them on the need for design to have sufficient time to iterate and test hypotheses. We faced challenges with reactive timelines and independent requests from multiple Product partners, which strained communication and impacted overall delivery.<br><br>To overcome these challenges, I discussed an ideal working model with my design team and illustrated a working model that adapted a dual-track scrum methodology, resulting in a much closer relationship with Product and Tech and both business segments. I created opportunities for members of my team to present and socialize the proposal with various partners.</p>
+      </div>
+      <img class="artifact-img" src="https://www.figma.com/api/mcp/asset/e33d990c-2655-4ced-b7e2-cd80530593ae" alt="PA Delivery Process — dual-track scrum working model diagram">
+    </div>
+
+    <hr class="rule">
+
+    <div class="artifact">
+      <div class="artifact-header">
+        <div>
+          <span class="artifact-number">02</span>
+          <h3 class="artifact-title">Leading Stakeholder Discussions &amp; Priority Alignment</h3>
+        </div>
+        <p class="artifact-body">As a senior design manager, I am highly effective in guiding my team towards producing impactful results. In response to the challenges posed by an overwhelming volume of haphazard design support requests, I secured buy-in from Product and Tech partners to establish a structured backlog. To ground our design efforts in data, I facilitated a cross-functional brainstorm with key business stakeholders and partners, during which my team collected existing business problems and customer problems.<br><br>Through a rigorous prioritization exercise, I led a core team of stakeholders in defining the team's near-term deliverables. In collaboration with the Experience Design team, we synthesized all the ideas generated during the brainstorming session and categorized them into themes, building out hypotheses and prioritizing them into a shared backlog.</p>
+      </div>
+      <img class="artifact-img" src="https://www.figma.com/api/mcp/asset/94446aa5-9fc6-451d-a99a-b4fb88261323" alt="Virtual Brainstorm FigJam — Q2 2021 cross-functional session">
+    </div>
+
+    <hr class="rule">
+
+    <div class="artifact">
+      <div class="artifact-header">
+        <div>
+          <span class="artifact-number">03</span>
+          <h3 class="artifact-title">Developing a Design-Owned Backlog</h3>
+        </div>
+        <p class="artifact-body">As a result of this work, I led a successful design-led effort to organize intent with our partners, which helped to define priorities and keep our team organized while managing our workload. The process of involving partners in the brainstorming session ensured that they felt included in the design process, which led to a more collaborative and effective outcome.<br><br>My team was also empowered to see what we were working towards, which led to increased motivation and a shared sense of purpose. These results are a testament to the effectiveness of my design leadership and the positive impact that it can have on the design process and the broader organization.</p>
+      </div>
+      <img class="artifact-img" src="https://www.figma.com/api/mcp/asset/0d55bec3-3c72-4e68-834e-df9a84e0bbeb" alt="PA Design Backlog — January 2021">
+    </div>
+
+    <hr class="rule">
+
+    <div class="artifact">
+      <div class="artifact-header">
+        <div>
+          <span class="artifact-number">04</span>
+          <h3 class="artifact-title">Creating a Comprehensive Design Repository</h3>
+        </div>
+        <p class="artifact-body">One of the most rewarding outcomes of our team's work was the creation of a comprehensive design repository that helped us scale rapidly and maintain a clear, evolving story. As the team and business intent grew, it became increasingly important to have a centralized repository where we could store our work, including designs, hypotheses, research, sprints, test results, and business outcomes.<br><br>Drawing on my expertise as a Senior Design Manager, I guided my team in creating a timeline of deliverables that our Experience Design team had produced, which has since become a critical tool for onboarding new designers and business team members. By prioritizing collaboration and organization, we were able to create a valuable resource that continues to drive success for our team and the broader organization.</p>
+      </div>
+      <img class="artifact-img" src="https://www.figma.com/api/mcp/asset/09c1626a-8275-4505-a0d0-2cfc931e0836" alt="Pre-Approval Design History — comprehensive repository timeline">
+    </div>
+
+  </div>
+</section>
+
+<!-- ── CONCLUSION ── -->
+<div class="conclusion-wrap">
+  <p style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:32px;">Conclusion</p>
+  <p class="conclusion-quote">By centering the user in every design decision and enabling my team to lead with <span>research, strategy, and partnership</span>, we delivered measurable improvements to Capital One's credit card acquisition experience.</p>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <span class="footer-logo">Marina Beric</span>
+  <span class="footer-copy">© 2026 Marina Beric. All rights reserved.</span>
+</footer>
+
+</div><!-- /#site -->
+
+<script>
+  (function() {
+    var _k = btoa('Marina2026');
+    function checkPass(e) {
+      e.preventDefault();
+      var v = document.getElementById('passInput').value;
+      if (btoa(v) === _k) {
+        document.getElementById('gate').style.display = 'none';
+        document.getElementById('site').style.display = 'block';
+        sessionStorage.setItem('mb_auth', '1');
+      } else {
+        document.getElementById('gateError').textContent = 'Incorrect password. Please try again.';
+        document.getElementById('passInput').value = '';
+        document.getElementById('passInput').focus();
+      }
+    }
+    window.checkPass = checkPass;
+
+    if (sessionStorage.getItem('mb_auth') === '1') {
+      document.getElementById('gate').style.display = 'none';
+      document.getElementById('site').style.display = 'block';
+    }
+  })();
+</script>
+
 </body>
 </html>
