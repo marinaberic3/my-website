@@ -107,127 +107,85 @@
     }
     .btn-ghost:hover { color: var(--white); }
 
-    /* ── Carousel ───────────────────────────────────── */
-    .carousel-section {
+    /* ── Work Grid ──────────────────────────────────── */
+    .work-grid-section {
       background: var(--black);
-      padding: clamp(3rem, 5vw, 4.5rem) 0;
       border-bottom: 1px solid var(--rule);
     }
-    .carousel-header {
-      padding: 0 var(--gutter);
-      max-width: calc(var(--max) + var(--gutter) * 2);
-      margin: 0 auto 2rem auto;
+    .work-grid-header {
+      padding: clamp(2.5rem, 4vw, 3.5rem) var(--gutter) 0;
+      max-width: var(--max); margin: 0 auto;
     }
-    .carousel-label {
+    .work-grid-label {
       font-size: 1rem; font-weight: 700; letter-spacing: 0.16em;
       text-transform: uppercase; color: rgba(255,255,255,0.55);
     }
-
-    .carousel-viewport {
-      overflow: hidden;
-      padding: 0 8vw;
-      touch-action: pan-y;
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border-top: 1px solid var(--rule);
+      margin-top: clamp(2rem, 3vw, 2.5rem);
     }
-    .carousel-track {
-      display: flex;
-      gap: clamp(1rem, 1.5vw, 1.5rem);
-      will-change: transform;
-      user-select: none;
-    }
-    .carousel-card {
-      flex: 0 0 calc(84vw - 16vw);
-      max-width: 600px;
-      border: 1px solid var(--rule);
+    .work-card {
+      border-right: 1px solid var(--rule);
       display: flex; flex-direction: column;
-      overflow: hidden; flex-shrink: 0;
       text-decoration: none; color: inherit;
-      transition: border-color 0.3s, opacity 0.4s;
-      opacity: 0.45;
+      transition: background 0.2s;
+      cursor: pointer;
     }
-    .carousel-card.is-active { opacity: 1; border-color: rgba(255,255,255,0.2); }
-    .carousel-card__img {
+    .work-card:last-child { border-right: none; }
+    .work-card:hover { background: rgba(255,255,255,0.03); }
+    .work-card--disabled { cursor: default; }
+    .work-card--disabled:hover { background: transparent; }
+    .work-card__img {
       aspect-ratio: 16/9;
       background: #111;
-      display: flex; align-items: center; justify-content: center;
       position: relative; overflow: hidden;
+      border-bottom: 1px solid var(--rule);
     }
-    .carousel-card__cta {
+    .work-card__body {
+      padding: 2rem 2rem 2.5rem;
+      display: flex; flex-direction: column; gap: 1rem;
+      flex: 1;
+    }
+    .work-card__num {
+      font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: rgba(255,255,255,0.40);
+    }
+    .work-card__title {
+      font-family: var(--display);
+      font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+      font-weight: 700; font-variation-settings: 'opsz' 36;
+      line-height: 1.15; letter-spacing: -0.01em;
+    }
+    .work-card__desc {
+      font-size: 0.95rem; font-weight: 500; line-height: 1.65;
+      color: rgba(255,255,255,0.65); flex: 1;
+    }
+    .work-card__cta {
       display: inline-flex; align-items: center; gap: 0.4rem;
-      font-size: 1.05rem; font-weight: 600; letter-spacing: 0.04em;
+      font-size: 0.9rem; font-weight: 600; letter-spacing: 0.04em;
       color: var(--white);
       padding-bottom: 0.15rem;
       border-bottom: 1px solid rgba(255,255,255,0.35);
       transition: border-color 0.2s;
-      width: fit-content;
+      width: fit-content; margin-top: 0.5rem;
     }
-    .carousel-card__cta:hover { border-color: var(--white); }
-    .carousel-card__coming-soon {
+    .work-card:hover .work-card__cta { border-color: var(--white); }
+    .work-card__coming-soon {
       display: inline-flex; align-items: center;
-      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--white);
-      padding: 0.5rem 1.1rem;
-      border: 1px solid rgba(255,255,255,0.45);
-      width: fit-content;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: rgba(255,255,255,0.45);
+      padding: 0.45rem 1rem;
+      border: 1px solid rgba(255,255,255,0.2);
+      width: fit-content; margin-top: 0.5rem;
     }
-    .carousel-card__body {
-      padding: 1.75rem 2rem 2rem;
-      display: flex; flex-direction: column; gap: 1rem;
+    @media (max-width: 900px) {
+      .work-grid { grid-template-columns: 1fr; }
+      .work-card { border-right: none; border-bottom: 1px solid var(--rule); }
+      .work-card:last-child { border-bottom: none; }
     }
-    .carousel-card__num {
-      font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em;
-      text-transform: uppercase; color: rgba(255,255,255,0.50);
-    }
-    .carousel-card__title {
-      font-family: var(--display);
-      font-size: clamp(1.3rem, 2.2vw, 1.8rem);
-      font-weight: 700; font-variation-settings: 'opsz' 36;
-      line-height: 1.15; letter-spacing: -0.01em;
-    }
-    .carousel-card__desc {
-      font-size: clamp(1rem, 1.3vw, 1.1rem); font-weight: 500; line-height: 1.65;
-      color: rgba(255,255,255,0.82); max-width: 60ch;
-    }
-
-    .carousel-footer {
-      display: flex; flex-direction: column;
-      align-items: center; gap: 1.25rem;
-      margin-top: 2.25rem; padding: 0 var(--gutter);
-    }
-    .carousel-dots { display: flex; gap: 0.5rem; }
-    .dot {
-      width: 7px; height: 7px; border-radius: 50%;
-      background: rgba(255,255,255,0.22);
-      border: none; cursor: pointer; padding: 0;
-      transition: background 0.2s, transform 0.2s;
-    }
-    .dot.is-active { background: var(--white); transform: scale(1.35); }
-    .dot:focus-visible { outline: 2px solid var(--white); outline-offset: 3px; }
-    .carousel-controls {
-      display: flex; align-items: center; gap: 0.6rem;
-    }
-    .ctrl-btn {
-      width: 44px; height: 44px;
-      display: flex; align-items: center; justify-content: center;
-      background: rgba(255,255,255,0.09);
-      border: 1px solid rgba(255,255,255,0.25);
-      color: rgba(255,255,255,0.88);
-      cursor: pointer; font-size: 1.1rem;
-      transition: background 0.2s, color 0.2s, border-color 0.2s;
-    }
-    .ctrl-btn:hover { background: rgba(255,255,255,0.18); color: var(--white); border-color: rgba(255,255,255,0.5); }
-    .ctrl-btn:focus-visible { outline: 2px solid var(--white); outline-offset: 2px; }
-    .ctrl-pause {
-      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em;
-      text-transform: uppercase; padding: 0.5rem 1rem;
-      background: rgba(255,255,255,0.09);
-      border: 1px solid rgba(255,255,255,0.25);
-      color: rgba(255,255,255,0.88);
-      cursor: pointer; transition: all 0.2s;
-    }
-    .ctrl-pause:hover { color: var(--white); background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.5); }
-    .ctrl-pause[aria-pressed="true"] { color: var(--white); border-color: rgba(255,255,255,0.65); background: rgba(255,255,255,0.15); }
-    .ctrl-pause:focus-visible { outline: 2px solid var(--white); outline-offset: 2px; }
 
     /* ── Metrics dark ───────────────────────────────── */
     .metrics-dark {
@@ -518,11 +476,6 @@
       .value-card { padding: 1.5rem 0; border-top: 1px solid rgba(0,0,0,0.14); width: 100%; }
       .value-card:first-child { border-top: 2px solid var(--black); }
       .metrics-dark__inner { grid-template-columns: 1fr 1fr; }
-      .carousel-viewport { padding: 0 4vw; }
-      .carousel-card { flex: 0 0 90vw; }
-      .carousel-card__body { padding: 1.25rem 1.25rem 1.5rem; }
-      .carousel-card__title { font-size: 1.1rem; }
-      .carousel-card__desc { font-size: 0.92rem; }
       .interests-stack { gap: 0; }
       .work-gate__form { flex-direction: column; }
       .work-gate__input { min-width: 0; width: 100%; }
@@ -600,60 +553,43 @@
 
   <!-- Protected Work (hidden until password entered) -->
   <div class="work-protected" id="workProtected">
-  <!-- Project Carousel -->
-  <section class="carousel-section" aria-label="Selected Work">
-    <div class="carousel-header">
-      <p class="carousel-label">Selected Work</p>
+  <!-- Work Grid -->
+  <section class="work-grid-section" aria-label="Selected Work">
+    <div class="work-grid-header">
+      <p class="work-grid-label">Selected Work</p>
     </div>
+    <div class="work-grid">
 
-    <div class="carousel-viewport" id="carouselViewport">
-      <div class="carousel-track" id="carouselTrack" aria-live="polite">
-
-        <a href="work/spoton.html" class="carousel-card is-active" aria-label="SpotOn Express Point of Sale System">
-          <div class="carousel-card__img img-spoton"></div>
-          <div class="carousel-card__body">
-            <p class="carousel-card__num">01 / 03</p>
-            <p class="carousel-card__title">Scaling SpotOn Express Point of Sale System</p>
-            <p class="carousel-card__desc">Led design across the Express POS platform through a strategic pivot, aligning a fragmented org and shipping work that scaled from alpha to GA.</p>
-            <span class="carousel-card__cta">View Case Study →</span>
-          </div>
-        </a>
-
-        <a href="work/capital-one.html" class="carousel-card" aria-label="Scaling Card Acquisitions at Capital One">
-          <div class="carousel-card__img img-c1-real"></div>
-          <div class="carousel-card__body">
-            <p class="carousel-card__num">02 / 03</p>
-            <p class="carousel-card__title">Scaling Card Acquisitions at Capital One</p>
-            <p class="carousel-card__desc">Addressed low conversion rates across credit card acquisition funnels. $100MM+ in attributable revenue impact over six years.</p>
-            <span class="carousel-card__cta">View Case Study →</span>
-          </div>
-        </a>
-
-        <div class="carousel-card" role="article" aria-label="Design-Led Personalization at Capital One">
-          <div class="carousel-card__img img-guide-real"></div>
-          <div class="carousel-card__body">
-            <p class="carousel-card__num">03 / 03</p>
-            <p class="carousel-card__title">Design-Led Personalization at Capital One</p>
-            <p class="carousel-card__desc">Personalized the credit card application journey based on customer behavior and financial profile, driving 500K+ new accounts per year.</p>
-            <span class="carousel-card__coming-soon">Coming Soon</span>
-          </div>
+      <a href="work/spoton.html" class="work-card">
+        <div class="work-card__img img-spoton"></div>
+        <div class="work-card__body">
+          <p class="work-card__num">01 / 03</p>
+          <p class="work-card__title">Scaling SpotOn Express Point of Sale System</p>
+          <p class="work-card__desc">Led design across the Express POS platform through a strategic pivot, aligning a fragmented org and shipping work that scaled from alpha to GA.</p>
+          <span class="work-card__cta">View Case Study →</span>
         </div>
+      </a>
 
-      </div>
-    </div>
+      <a href="work/capital-one.html" class="work-card">
+        <div class="work-card__img img-c1-real"></div>
+        <div class="work-card__body">
+          <p class="work-card__num">02 / 03</p>
+          <p class="work-card__title">Scaling Card Acquisitions at Capital One</p>
+          <p class="work-card__desc">Addressed low conversion rates across credit card acquisition funnels. $100MM+ in attributable revenue impact over six years.</p>
+          <span class="work-card__cta">View Case Study →</span>
+        </div>
+      </a>
 
-    <!-- Dots + controls centered below carousel -->
-    <div class="carousel-footer">
-      <div class="carousel-dots" role="tablist" aria-label="Carousel position">
-        <button class="dot is-active" role="tab" aria-selected="true"  aria-label="Project 1" data-index="0"></button>
-        <button class="dot"           role="tab" aria-selected="false" aria-label="Project 2" data-index="1"></button>
-        <button class="dot"           role="tab" aria-selected="false" aria-label="Project 3" data-index="2"></button>
+      <div class="work-card work-card--disabled">
+        <div class="work-card__img img-guide-real"></div>
+        <div class="work-card__body">
+          <p class="work-card__num">03 / 03</p>
+          <p class="work-card__title">Design-Led Personalization at Capital One</p>
+          <p class="work-card__desc">Personalized the credit card application journey based on customer behavior and financial profile, driving 500K+ new accounts per year.</p>
+          <span class="work-card__coming-soon">Coming Soon</span>
+        </div>
       </div>
-      <div class="carousel-controls" role="group" aria-label="Carousel controls">
-        <button class="ctrl-btn" id="prevBtn" aria-label="Previous project">&#8592;</button>
-        <button class="ctrl-btn" id="nextBtn" aria-label="Next project">&#8594;</button>
-        <button class="ctrl-pause" id="pauseBtn" aria-pressed="false" aria-label="Pause auto-advance">Pause</button>
-      </div>
+
     </div>
   </section>
 
@@ -768,7 +704,6 @@
         gate.style.display = 'none';
         protected_.classList.add('unlocked');
         protected_.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        initCarousel();
       }
 
       async function tryUnlock() {
@@ -810,144 +745,6 @@
       input.addEventListener('keydown', e => { if (e.key === 'Enter') tryUnlock(); });
       input.addEventListener('input', () => errorMsg.classList.remove('visible'));
     })();
-
-    // ── Carousel ─────────────────────────────────────────────────
-    function initCarousel() {
-      const viewport = document.getElementById('carouselViewport');
-      const track    = document.getElementById('carouselTrack');
-      const realCards = Array.from(track.querySelectorAll('.carousel-card'));
-      const dots     = Array.from(document.querySelectorAll('.dot'));
-      const prevBtn  = document.getElementById('prevBtn');
-      const nextBtn  = document.getElementById('nextBtn');
-      const pauseBtn = document.getElementById('pauseBtn');
-
-      const N        = realCards.length;
-      let current    = 0;
-      let pos        = 1;
-      let paused     = false;
-      let animating  = false;
-      let timer      = null;
-      const INTERVAL = 5000;
-
-      const cloneFirst = realCards[0].cloneNode(true);
-      const cloneLast  = realCards[N - 1].cloneNode(true);
-      [cloneFirst, cloneLast].forEach(c => {
-        c.setAttribute('aria-hidden', 'true');
-        c.classList.remove('is-active');
-      });
-      track.appendChild(cloneFirst);
-      track.insertBefore(cloneLast, realCards[0]);
-
-      function getGap() {
-        return parseFloat(getComputedStyle(track).columnGap) || 24;
-      }
-      function getCardW() {
-        return realCards[0].getBoundingClientRect().width;
-      }
-
-      function slideTo(targetPos, animate) {
-        const offset = targetPos * (getCardW() + getGap());
-        track.style.transition = animate
-          ? 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)'
-          : 'none';
-        track.style.transform = `translateX(-${offset}px)`;
-        pos = targetPos;
-      }
-
-      track.addEventListener('transitionend', () => {
-        if (pos === 0) {
-          slideTo(N, false);
-        } else if (pos === N + 1) {
-          slideTo(1, false);
-        }
-        animating = false;
-      });
-
-      function updateUI() {
-        realCards.forEach((c, i) => c.classList.toggle('is-active', i === current));
-        dots.forEach((d, i) => {
-          d.classList.toggle('is-active', i === current);
-          d.setAttribute('aria-selected', String(i === current));
-        });
-      }
-
-      function advance(dir) {
-        if (animating) return;
-        animating = true;
-        pos += dir;
-        if (pos === 0)     current = N - 1;
-        else if (pos === N + 1) current = 0;
-        else current = pos - 1;
-        slideTo(pos, true);
-        updateUI();
-      }
-
-      function goTo(realIdx) {
-        if (animating) return;
-        animating = true;
-        current = realIdx;
-        pos = realIdx + 1;
-        slideTo(pos, true);
-        updateUI();
-      }
-
-      function startTimer() {
-        clearInterval(timer);
-        if (!paused) timer = setInterval(() => { advance(1); }, INTERVAL);
-      }
-
-      function togglePause() {
-        paused = !paused;
-        pauseBtn.setAttribute('aria-pressed', String(paused));
-        pauseBtn.textContent = paused ? 'Play' : 'Pause';
-        paused ? clearInterval(timer) : startTimer();
-      }
-
-      prevBtn.addEventListener('click',  () => { advance(-1); startTimer(); });
-      nextBtn.addEventListener('click',  () => { advance(1);  startTimer(); });
-      pauseBtn.addEventListener('click', togglePause);
-      dots.forEach(d => d.addEventListener('click', () => {
-        goTo(parseInt(d.dataset.index));
-        startTimer();
-      }));
-
-      let touchStartX = null, touchStartY = null;
-      viewport.addEventListener('touchstart', e => {
-        touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
-      }, { passive: true });
-      viewport.addEventListener('touchend', e => {
-        if (touchStartX === null) return;
-        const dx = e.changedTouches[0].clientX - touchStartX;
-        const dy = e.changedTouches[0].clientY - touchStartY;
-        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 44) {
-          advance(dx < 0 ? 1 : -1);
-          startTimer();
-        }
-        touchStartX = touchStartY = null;
-      }, { passive: true });
-
-      const section = track.closest('.carousel-section');
-      section.addEventListener('mouseenter', () => { if (!paused) clearInterval(timer); });
-      section.addEventListener('mouseleave', () => { if (!paused) startTimer(); });
-
-      document.addEventListener('keydown', e => {
-        if (e.target.closest('.carousel-section')) {
-          if (e.key === 'ArrowLeft')  { advance(-1); startTimer(); }
-          if (e.key === 'ArrowRight') { advance(1);  startTimer(); }
-        }
-      });
-
-      let resizeTimer;
-      window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => slideTo(pos, false), 100);
-      });
-
-      slideTo(1, false);
-      updateUI();
-      startTimer();
-    }
 
     window.scrollToWork = function(e) {
       e.preventDefault();
