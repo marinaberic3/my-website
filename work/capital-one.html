@@ -29,48 +29,8 @@
     min-height: 100vh;
   }
 
-  /* ── PASSWORD GATE (stays dark) ── */
-  #gate {
-    position: fixed; inset: 0; z-index: 200;
-    background: #100a06;
-    display: flex; align-items: center; justify-content: center;
-    flex-direction: column; gap: 0;
-  }
-  .gate-logo {
-    font-family: var(--serif); font-size: 26px; font-weight: 400;
-    letter-spacing: .06em; color: #f0e8de;
-    margin-bottom: 48px;
-  }
-  .gate-label {
-    font-size: 11px; font-weight: 600; letter-spacing: .14em;
-    text-transform: uppercase; color: #8a7a6e; margin-bottom: 16px;
-  }
-  .gate-form { display: flex; flex-direction: column; gap: 12px; width: 320px; }
-  .gate-input {
-    width: 100%; padding: 14px 16px;
-    background: rgba(240,232,222,.06);
-    border: 1px solid rgba(240,232,222,0.18);
-    border-radius: 4px;
-    color: #f0e8de; font-family: var(--sans);
-    font-size: 16px; letter-spacing: .04em;
-    outline: none; transition: border-color .2s;
-  }
-  .gate-input:focus { border-color: rgba(240,232,222,.4); }
-  .gate-input::placeholder { color: #8a7a6e; }
-  .gate-btn {
-    padding: 14px; background: var(--accent); border: none;
-    border-radius: 4px; color: #fff; font-family: var(--sans);
-    font-size: 14px; font-weight: 600; letter-spacing: .06em;
-    text-transform: uppercase; cursor: pointer; transition: background .2s;
-  }
-  .gate-btn:hover { background: #b03d2a; }
-  .gate-error {
-    font-size: 13px; color: #e05a4a; text-align: center;
-    min-height: 18px; margin-top: 4px;
-  }
-
   /* ── SITE ── */
-  #site { display: none; }
+  #site { display: block; }
 
   /* ── NAV ── */
   .site-nav {
@@ -383,18 +343,6 @@
 </head>
 <body>
 
-<!-- ── PASSWORD GATE ── -->
-<div id="gate">
-  <p class="gate-logo">Marina Beric</p>
-  <p class="gate-label">Password required</p>
-  <form class="gate-form" onsubmit="checkPass(event)">
-    <input class="gate-input" type="password" id="passInput" placeholder="Enter password" autocomplete="current-password">
-    <button class="gate-btn" type="submit">Enter</button>
-    <p class="gate-error" id="gateError"></p>
-  </form>
-</div>
-
-<!-- ── SITE ── -->
 <div id="site">
 
 <nav class="site-nav">
@@ -779,30 +727,6 @@
 
 </div><!-- /#site -->
 
-<script>
-  (function() {
-    var _k = btoa('Marina2026');
-    function checkPass(e) {
-      e.preventDefault();
-      var v = document.getElementById('passInput').value;
-      if (btoa(v) === _k) {
-        document.getElementById('gate').style.display = 'none';
-        document.getElementById('site').style.display = 'block';
-        sessionStorage.setItem('mb_auth', '1');
-      } else {
-        document.getElementById('gateError').textContent = 'Incorrect password. Please try again.';
-        document.getElementById('passInput').value = '';
-        document.getElementById('passInput').focus();
-      }
-    }
-    window.checkPass = checkPass;
-
-    if (sessionStorage.getItem('mb_auth') === '1') {
-      document.getElementById('gate').style.display = 'none';
-      document.getElementById('site').style.display = 'block';
-    }
-  })();
-</script>
 
 </body>
 </html>
