@@ -796,9 +796,8 @@
   const cards    = document.getElementById('workCards');
   const pwForm   = document.querySelector('.work-gate__form');
 
-  const CORRECT    = 'marina2024'; // replace with actual password
-  const SESSION_KEY = 'mb_auth';
-  const ONE_DAY_MS  = 24 * 60 * 60 * 1000;
+  const SESSION_KEY   = 'mb_auth';
+  const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
 
   function unlockWork() {
     cards.classList.add('visible');
@@ -806,23 +805,42 @@
     pwError.style.display = 'none';
   }
 
-  // On load: check if already authenticated within the last 24 hours
+  // On load: check if already authenticated within the last 30 days
   (function checkSession() {
     try {
       const stored = JSON.parse(localStorage.getItem(SESSION_KEY));
-      if (stored && stored.auth && (Date.now() - stored.ts) < ONE_DAY_MS) {
+      if (stored && stored.auth && (Date.now() - stored.ts) < THIRTY_DAYS_MS) {
         unlockWork();
       }
     } catch (e) {}
   })();
 
-  function tryPassword() {
-    if (pwInput.value === CORRECT) {
-      // Save auth state with timestamp
-      localStorage.setItem(SESSION_KEY, JSON.stringify({ auth: true, ts: Date.now() }));
-      unlockWork();
-    } else {
+  async function tryPassword() {
+    const password = pwInput.value.trim();
+    if (!password) return;
+    pwSubmit.disabled = true;
+    pwSubmit.textContent = 'Checking…';
+    pwError.style.display = 'none';
+    try {
+      const res = await fetch('/api/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password })
+      });
+      if (res.ok) {
+        localStorage.setItem(SESSION_KEY, JSON.stringify({ auth: true, ts: Date.now() }));
+        unlockWork();
+      } else {
+        pwError.style.display = 'block';
+        pwInput.value = '';
+        pwInput.focus();
+      }
+    } catch {
+      pwError.textContent = 'Something went wrong. Please try again.';
       pwError.style.display = 'block';
+    } finally {
+      pwSubmit.disabled = false;
+      pwSubmit.textContent = 'View Work';
     }
   }
 
