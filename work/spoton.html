@@ -9,29 +9,28 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    /* Locked side-by-side image pair — never stacks */
+    /* Override grid — all image blocks stack full width */
+    .cs-img-grid {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(1.5rem, 3vw, 2.5rem);
+    }
     .cs-img-pair {
       display: flex;
-      gap: clamp(0.5rem, 1vw, 0.75rem);
-      align-items: flex-start;
+      flex-direction: column;
+      gap: clamp(1.5rem, 3vw, 2.5rem);
     }
-    .cs-img-pair__station {
-      flex: 1.6;
-      min-width: 0;
-      display: block;
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.14), 0 1px 4px rgba(0,0,0,0.08);
-    }
+    .cs-img-pair__station,
     .cs-img-pair__handheld {
-      flex: 0.6;
-      min-width: 0;
       display: block;
       width: 100%;
       height: auto;
       border-radius: 8px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.14), 0 1px 4px rgba(0,0,0,0.08);
+    }
+    /* Constrain portrait handheld so it doesn't go full-bleed tall */
+    .cs-img-pair__handheld {
+      max-width: 380px;
     }
   </style>
 </head>

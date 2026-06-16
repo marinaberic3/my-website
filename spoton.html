@@ -1,21 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Scaling SpotOn Express Point of Sale System | Marina Beric</title>
-  <meta name="description" content="How Marina Beric led design across SpotOn's Express POS platform: aligning teams, shipping key features, and scaling from alpha to GA." />
-  <meta name="robots" content="noindex, nofollow" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="icon" href="../favicon.ico" sizes="any" />
-  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
-  <link rel="apple-touch-icon" href="../favicon-32.png" />
-  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* Locked side-by-side image pair — never stacks */
+    .cs-img-pair {
+      display: flex;
+      gap: clamp(0.5rem, 1vw, 0.75rem);
+      align-items: flex-start;
+    }
+    .cs-img-pair__station {
+      flex: 1.6;
+      min-width: 0;
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.14), 0 1px 4px rgba(0,0,0,0.08);
+    }
+    .cs-img-pair__handheld {
+      flex: 0.6;
+      min-width: 0;
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.14), 0 1px 4px rgba(0,0,0,0.08);
+    }
+  </style>
 </head>
 <body>
 
+  <!-- Nav -->
   <nav class="nav">
     <div class="wrap nav__inner">
       <a href="../index.html" class="nav__logo">Marina Beric</a>
@@ -29,13 +51,15 @@
       </button>
     </div>
   </nav>
+
+  <!-- Mobile menu -->
   <div class="nav__mobile-menu" id="mobileMenu">
     <a href="../index.html#work">Work</a>
     <a href="../index.html#about">About</a>
     <a href="mailto:marinaberic3@gmail.com">Contact</a>
   </div>
 
-  <!-- ── Case Study Hero ───────────────────────────────────── -->
+  <!-- Case study hero -->
   <section class="cs-hero">
     <div class="wrap">
       <div class="cs-eyebrow">
@@ -44,11 +68,11 @@
         <span class="t-label">SpotOn · 2024–Present</span>
       </div>
       <h1 class="t-display">Scaling SpotOn Express Point of Sale System</h1>
-      <p class="t-body" style="max-width:60ch; margin-top:1.5rem; font-size:1.02rem;">
+      <p class="t-body" style="max-width:60ch; margin-top:1.5rem;">
         Shortly after I joined SpotOn, the company made a strategic shift to accelerate Express,
         its more nimble POS designed for smaller bars and restaurants. I led design across the
-        Hospitality and Guest domains through that transition , aligning a fragmented org,
-        making hard tradeoffs, and shipping work that expanded what Express could sell and who it could serve.
+        Hospitality and Guest domains through that transition, aligning a fragmented org, making
+        hard tradeoffs, and shipping work that expanded what Express could sell and who it could serve.
       </p>
       <div class="cs-meta-row">
         <div>
@@ -71,49 +95,45 @@
     </div>
   </section>
 
-  <!-- ── Impact metrics ────────────────────────────────────── -->
-  <div class="metrics" style="border-top:none;" data-reveal-group>
+  <!-- Metrics -->
+  <div class="metrics">
     <div class="metric">
       <span class="metric__value">76.5%</span>
-      <p class="metric__label">Gross Payment Volume Growth</p>
+      <span class="metric__label">Gross Payment Volume Growth</span>
     </div>
     <div class="metric">
       <span class="metric__value">40%</span>
-      <p class="metric__label">More Checks Visible on Screen</p>
+      <span class="metric__label">More Checks Visible on Screen</span>
     </div>
     <div class="metric">
       <span class="metric__value">7</span>
-      <p class="metric__label">Products Across Hospitality and Guest</p>
+      <span class="metric__label">Products Across Hospitality and Guest</span>
     </div>
     <div class="metric">
       <span class="metric__value">Alpha to GA</span>
-      <p class="metric__label">Express Platform Scale</p>
+      <span class="metric__label">Express Platform Scale</span>
     </div>
     <div class="metric">
       <span class="metric__value">CSAT up</span>
-      <p class="metric__label">Customer Satisfaction Trending</p>
+      <span class="metric__label">Customer Satisfaction Trending</span>
     </div>
   </div>
 
-  <!-- ── Full-bleed image ───────────────────────────────────── -->
+  <!-- Hero image -->
   <div class="cs-fullbleed">
-    <img src="../images/spoton_hero.png"
-         alt="Server using SpotOn Express POS terminal in a restaurant"
-         style="width:100%; height:480px; object-fit:cover; object-position:center 35%; display:block;">
+    <img src="../images/spoton_hero.png" alt="Server using SpotOn Express POS terminal in a restaurant">
   </div>
 
-  <!-- ── Body content ──────────────────────────────────────── -->
+  <!-- Body -->
   <div class="cs-body">
     <div class="wrap">
 
       <!-- The Situation -->
-      <div class="cs-section" data-reveal>
+      <div class="cs-section">
         <p class="t-label cs-section__label">The Situation</p>
         <div class="cs-section__body">
-          <h2 class="t-headline" style="font-size:clamp(1.4rem,2.5vw,2.1rem); margin-bottom:1.25rem;">
-            A strategic pivot mid-flight, without shared clarity on who owned what.
-          </h2>
-          <p class="t-body">
+          <h2 class="t-headline">A strategic pivot mid-flight, without shared clarity on who owned what.</h2>
+          <p class="t-body" style="margin-top:1.25rem;">
             SpotOn acquired a legacy POS system and decided to accelerate it into Express, a product
             built for smaller, faster-moving restaurant and bar accounts. We were simultaneously
             maintaining RPOS, the existing platform for our highest-value full-service merchants, while
@@ -133,36 +153,29 @@
             over depth.
           </p>
         </div>
-
-        <!-- Side-by-side: Express vs RPOS menu 2024 -->
         <div class="cs-img-bleed">
           <div class="cs-img-bleed__inner">
             <p class="cs-img-label">The Starting Point — What We Inherited</p>
             <div class="cs-img-grid">
               <figure class="cs-img-figure">
                 <figcaption class="cs-img-sub">Express POS — Menu (2024)</figcaption>
-                <img src="../images/spoton-menu-express.png"
-                     alt="SpotOn Express POS menu screen as of 2024, showing the starting state of the product">
+                <img src="../images/spoton-menu-express.png" alt="SpotOn Express POS menu screen as of 2024, showing the starting state of the product">
               </figure>
               <figure class="cs-img-figure">
                 <figcaption class="cs-img-sub">RPOS — Menu (2024)</figcaption>
-                <img src="../images/spoton-menu-rpos.png"
-                     alt="SpotOn RPOS menu screen as of 2024, the legacy system being maintained alongside Express">
+                <img src="../images/spoton-menu-rpos.png" alt="SpotOn RPOS menu screen as of 2024, the legacy system being maintained alongside Express">
               </figure>
             </div>
           </div>
         </div>
-
       </div>
 
       <!-- My Role -->
-      <div class="cs-section" data-reveal>
+      <div class="cs-section">
         <p class="t-label cs-section__label">My Role</p>
         <div class="cs-section__body">
-          <h2 class="t-headline" style="font-size:clamp(1.4rem,2.5vw,2.1rem); margin-bottom:1.25rem;">
-            The translation layer between design and everything else.
-          </h2>
-          <p class="t-body">
+          <h2 class="t-headline">The translation layer between design and everything else.</h2>
+          <p class="t-body" style="margin-top:1.25rem;">
             I owned the Hospitality and Guest domains: seven products, one manager, seven designers,
             and horizontal partners in Content, Research, and Design System. My partners on the product
             side were a VP of Product, two Group PMs overseeing eight PM ICs, and seven engineering
@@ -184,17 +197,15 @@
         </div>
       </div>
 
-      <!-- Key Design Decisions -->
-      <div class="cs-section" data-reveal>
+      <!-- Key Decisions -->
+      <div class="cs-section">
         <p class="t-label cs-section__label">Key Decisions and Tradeoffs</p>
         <div class="cs-section__body">
-          <h2 class="t-headline" style="font-size:clamp(1.4rem,2.5vw,2.1rem); margin-bottom:1.25rem;">
-            Three areas where design judgment shaped the product.
-          </h2>
+          <h2 class="t-headline">Three areas where design judgment shaped the product.</h2>
         </div>
 
         <!-- Decision 01: Table Maps -->
-        <div class="cs-decision" style="margin-top:2.5rem;">
+        <div class="cs-decision">
           <span class="cs-decision__num">01</span>
           <div>
             <p class="cs-decision__title">Table Maps: Alignment over speed</p>
@@ -219,32 +230,27 @@
             </p>
           </div>
         </div>
-
-        <!-- Table Maps images: Reserve panel + Express device pair -->
         <div class="cs-img-bleed">
           <div class="cs-img-bleed__inner">
             <p class="cs-img-label">Table Maps — Reserve Application · Express Terminal · Express Handheld</p>
             <div class="cs-img-grid">
               <figure class="cs-img-figure">
                 <figcaption class="cs-img-sub">Reserve — Table Map Editor</figcaption>
-                <img src="../images/table-maps-reserve.png"
-                     alt="Reserve table map editor showing floor plan layout and table configuration">
+                <img src="../images/table-maps-reserve.png" alt="Reserve table map editor showing floor plan layout and table configuration">
               </figure>
               <div class="cs-img-figure">
                 <p class="cs-img-sub">Express Table Maps</p>
                 <div class="cs-img-device-pair">
-                  <img src="../images/table-maps-mvp.png" class="device-wide"
-                       alt="SpotOn Express terminal showing table map MVP implementation">
-                  <img src="../images/table-maps-hh.png" class="device-narrow"
-                       alt="SpotOn Express handheld showing occupied table state">
+                  <img src="../images/table-maps-mvp.png" class="device-wide" alt="SpotOn Express terminal showing table map MVP implementation">
+                  <img src="../images/table-maps-hh.png" class="device-narrow" alt="SpotOn Express handheld showing occupied table state">
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Decision 02: Checks Redesign -->
-        <div class="cs-decision" style="margin-top:3rem;">
+        <!-- Decision 02: Checks -->
+        <div class="cs-decision">
           <span class="cs-decision__num">02</span>
           <div>
             <p class="cs-decision__title">Checks Redesign: Research-driven friction reduction</p>
@@ -265,28 +271,24 @@
             </p>
           </div>
         </div>
-
-        <!-- Checks image -->
         <div class="cs-img-bleed">
           <div class="cs-img-bleed__inner">
             <p class="cs-img-label">Checks Redesign — Before and After</p>
             <div class="cs-img-grid">
               <figure class="cs-img-figure">
                 <figcaption class="cs-img-sub">Before</figcaption>
-                <img src="../images/checks-before.png"
-                     alt="Checks page before redesign — cluttered layout with small text">
+                <img src="../images/checks-before.png" alt="Checks page before redesign — cluttered layout with small text">
               </figure>
               <figure class="cs-img-figure">
                 <figcaption class="cs-img-sub">After</figcaption>
-                <img src="../images/checks-after.png"
-                     alt="Checks page after redesign — cleaner layout with 40% more checks visible">
+                <img src="../images/checks-after.png" alt="Checks page after redesign — cleaner layout with 40% more checks visible">
               </figure>
             </div>
           </div>
         </div>
 
-        <!-- Decision 03: Unified Payflow -->
-        <div class="cs-decision" style="margin-top:3rem;">
+        <!-- Decision 03: Payflow -->
+        <div class="cs-decision">
           <span class="cs-decision__num">03</span>
           <div>
             <p class="cs-decision__title">Unified Payflow: One entry point, less room for error</p>
@@ -302,26 +304,25 @@
             </p>
           </div>
         </div>
-
-        <!-- Payflow image -->
+        <!-- UPDATED: locked station + handheld pair replaces single payflow image -->
         <div class="cs-img-bleed">
           <div class="cs-img-bleed__inner">
             <p class="cs-img-label">Unified Payflow — Single Entry Point for Payment</p>
-            <img src="../images/spoton-payflow.png"
-                 alt="Unified payment flow showing single entry point on terminal and handheld">
+            <div class="cs-img-pair">
+              <img class="cs-img-pair__station" src="../images/spoton-station.png" alt="Station checkout — unified payment entry point on terminal">
+              <img class="cs-img-pair__handheld" src="../images/spoton-handheld.png" alt="Handheld checkout — unified payment entry point on handheld device">
+            </div>
           </div>
         </div>
 
-      </div>
+      </div><!-- /Key Decisions -->
 
-      <!-- Design System -->
-      <div class="cs-section" data-reveal>
+      <!-- Design System and Accessibility -->
+      <div class="cs-section">
         <p class="t-label cs-section__label">Design System and Accessibility</p>
         <div class="cs-section__body">
-          <h2 class="t-headline" style="font-size:clamp(1.4rem,2.5vw,2.1rem); margin-bottom:1.25rem;">
-            Building the foundation that made consistent work possible at scale.
-          </h2>
-          <p class="t-body">
+          <h2 class="t-headline">Building the foundation that made consistent work possible at scale.</h2>
+          <p class="t-body" style="margin-top:1.25rem;">
             Alongside the product work, my team contributed significantly to the design system that
             supported the entire design organization, including my scope across Hospitality and Guest.
             We worked with Marketing to align colors across products and the dashboard, standardized
@@ -343,32 +344,28 @@
         </div>
       </div>
 
-      <!-- Design System + Accessibility Training images -->
+      <!-- Design System images (standalone bleed between Design System and Outcomes) -->
       <div class="cs-img-bleed">
         <div class="cs-img-bleed__inner">
           <div class="cs-img-grid">
             <figure class="cs-img-figure">
               <figcaption class="cs-img-sub">WCAG 2.2 Accessibility Training — Full Team</figcaption>
-              <img src="../images/spoton-a11y-training.png"
-                   alt="WCAG 2.2 accessibility training deck delivered to the full SpotOn Product Design team">
+              <img src="../images/spoton-a11y-training.png" alt="WCAG 2.2 accessibility training deck delivered to the full SpotOn Product Design team">
             </figure>
             <figure class="cs-img-figure">
               <figcaption class="cs-img-sub">Design System — Roboto + Poppins Typography</figcaption>
-              <img src="../images/spoton-design-system.png"
-                   alt="Design system update adding Roboto as secondary typeface for improved numerical readability">
+              <img src="../images/spoton-design-system.png" alt="Design system update adding Roboto as secondary typeface for improved numerical readability">
             </figure>
           </div>
         </div>
       </div>
 
-      <!-- Outcome -->
-      <div class="cs-section" style="border-bottom:none;" data-reveal>
+      <!-- Outcomes -->
+      <div class="cs-section">
         <p class="t-label cs-section__label">Outcomes</p>
         <div class="cs-section__body">
-          <h2 class="t-headline" style="font-size:clamp(1.4rem,2.5vw,2.1rem); margin-bottom:1.25rem;">
-            Express scaled. The merchant base expanded. The team got stronger.
-          </h2>
-          <p class="t-body">
+          <h2 class="t-headline">Express scaled. The merchant base expanded. The team got stronger.</h2>
+          <p class="t-body" style="margin-top:1.25rem;">
             Express grew from alpha to fully GA during this period and continues to grow at an
             aggressive pace. We rolled out handhelds successfully, which opened the door to table
             service accounts that were previously out of reach. The platform now supports more complex
@@ -386,22 +383,21 @@
         </div>
       </div>
 
-    </div>
-  </div>
+    </div><!-- /wrap -->
+  </div><!-- /cs-body -->
 
-  <!-- ── Next project ───────────────────────────────────────── -->
+  <!-- Next project -->
   <div class="cs-next">
     <div class="wrap cs-next__inner">
-      <div>
-        <p class="t-label" style="margin-bottom:0.5rem;">Next Project</p>
-        <a href="capital-one.html" class="t-subhead" style="font-style:italic; display:inline-flex; align-items:center; gap:0.6rem;">
-          Designing for Conversion: Scaling Card Acquisitions at Capital One →
-        </a>
-      </div>
-      <a href="../index.html" class="t-label" style="color:var(--ink-light); transition:color 0.2s;">← All Work</a>
+      <p class="t-label">Next Project</p>
+      <a href="capital-one.html" class="t-headline-i">
+        Designing for Conversion: Scaling Card Acquisitions at Capital One →
+      </a>
+      <a href="../index.html" style="font-size:0.75rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-light);">← All Work</a>
     </div>
   </div>
 
+  <!-- Footer -->
   <footer class="footer">
     <div class="wrap footer__inner">
       <p class="footer__copy">© 2026 Marina Beric · Denver, CO</p>
@@ -410,5 +406,6 @@
   </footer>
 
   <script src="../js/main.js"></script>
+
 </body>
 </html>
