@@ -109,7 +109,52 @@
     width: 36px; height: 36px;
     background: none; border: none; cursor: pointer; padding: 4px;
   }
-  .nav__hamburger span { display: block; height: 1.5px; background: var(--ink); }
+  .nav__hamburger span {
+    display: block; height: 1.5px; background: var(--ink);
+    transition: transform 0.3s var(--ease), opacity 0.2s;
+    transform-origin: center;
+  }
+  .nav__hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .nav__hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav__hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  /* Mobile menu */
+  .nav__mobile-menu {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: var(--nav-h);
+    left: 0; right: 0;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--rule);
+    padding: 2rem var(--gutter) 2.5rem;
+    gap: 1.75rem;
+    transform: translateY(-10px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.3s var(--ease), opacity 0.25s, visibility 0.25s;
+    z-index: 99;
+  }
+  .nav__mobile-menu.open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+  .nav__mobile-menu a {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 500;
+    font-style: italic;
+    font-variation-settings: 'opsz' 48;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav__mobile-menu a:hover { color: var(--ink-mid); }
 
   /* Case study hero */
   .cs-hero {
@@ -453,18 +498,45 @@
     .metric:nth-child(4), .metric:nth-child(5) { border-top: 1px solid var(--rule); }
     .metric:nth-child(5) { border-right: none; }
     .cs-meta-row { grid-template-columns: 1fr 1fr; }
+    .cs-hero { padding-left: 24px; padding-right: 24px; }
     .section, .section-divider, .conclusion-wrap { padding: 48px 24px; }
-    .two-col, .experiment, .experiment.reverse, .artifact-header { grid-template-columns: 1fr; gap: 24px; }
-    .pillars-grid, .kpi-strip { grid-template-columns: 1fr; }
+    .two-col { grid-template-columns: 1fr; gap: 20px; }
+    .col-label { padding-top: 0; font-size: 12px; }
+    .experiment, .experiment.reverse { grid-template-columns: 1fr; gap: 24px; }
+    .experiment.reverse .exp-image { order: unset; }
+    .experiment.reverse .exp-body { order: unset; }
+    .experiment { padding: 40px 0; }
+    .artifact-header { grid-template-columns: 1fr; gap: 16px; }
+    .artifact-img {
+      width: calc(100% + 48px);
+      margin-left: -24px;
+      transform: none;
+      border-radius: 0;
+    }
+    .pillars-grid { grid-template-columns: 1fr; }
+    .kpi-strip { grid-template-columns: 1fr; }
+    .heading-lg { font-size: 28px; }
+    .body-text { font-size: 15px; }
+    .exp-title { font-size: 22px; }
+    .exp-text { font-size: 15px; }
+    .artifact-title { font-size: 20px; }
+    .artifact-body { font-size: 15px; }
+    .research-caption { font-size: 16px; }
+    .conclusion-quote { font-size: 20px; }
     .footer { flex-direction: column; gap: 12px; text-align: center; padding: 32px 24px; }
-    .artifact-img { width: 100%; margin-left: 0; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .divider-title { font-size: 16px; }
   }
   @media (max-width: 640px) {
     .metrics { grid-template-columns: 1fr 1fr; }
-    .metric { border-right: none; }
+    .metric { border-right: none; border-top: none; }
     .metric:nth-child(odd) { border-right: 1px solid var(--rule); }
-    .metric:nth-child(5) { grid-column: 1/-1; border-top: 1px solid var(--rule); }
+    .metric:nth-child(4) { border-top: 1px solid var(--rule); }
+    .metric:nth-child(5) { grid-column: 1/-1; border-top: 1px solid var(--rule); border-right: none; }
     .cs-meta-row { grid-template-columns: 1fr 1fr; }
+    .t-display { font-size: clamp(2.5rem, 10vw, 4rem); }
+    .wrap { padding: 0 20px; }
+    .cs-hero { padding-left: 20px; padding-right: 20px; }
   }
 </style>
 </head>
@@ -484,6 +556,13 @@
     </button>
   </div>
 </nav>
+
+<!-- Mobile menu -->
+<div class="nav__mobile-menu" id="mobileMenu">
+  <a href="../index.html#work">Work</a>
+  <a href="../index.html#about">About</a>
+  <a href="mailto:marinaberic3@gmail.com">Contact</a>
+</div>
 
 <!-- ══ HERO (spoton style) ══ -->
 <section class="cs-hero">
@@ -898,8 +977,26 @@
 </footer>
 
 <script>
+  // Nav scroll border
   window.addEventListener('scroll', () => {
     document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 10);
+  });
+
+  // Hamburger toggle
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+
+  // Close menu when any link is tapped
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    });
   });
 </script>
 
