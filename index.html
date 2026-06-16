@@ -311,18 +311,54 @@
       margin-top: var(--sp-6);
     }
     .work-card {
-      padding: var(--sp-5);
       border: 1px solid rgba(255,255,255,0.12);
+      overflow: hidden;
       transition: border-color 0.2s;
+      display: flex;
+      flex-direction: column;
     }
     .work-card:hover { border-color: rgba(255,255,255,0.3); }
+
+    /* card images */
+    .work-card__images { display: flex; flex-direction: column; }
+    .work-card__img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+    .work-card__img--hero { aspect-ratio: 3/1; }
+    .work-card__img--stack { aspect-ratio: 3/1; border-top: 1px solid rgba(255,255,255,0.08); }
+
+    /* locked pair: station + handheld side-by-side, never stacks */
+    .work-card__pair {
+      display: flex;
+      flex-shrink: 0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .work-card__pair-station {
+      flex: 1.6;
+      object-fit: cover;
+      display: block;
+      min-width: 0;
+      aspect-ratio: 16/9;
+    }
+    .work-card__pair-handheld {
+      flex: 0.6;
+      object-fit: cover;
+      display: block;
+      min-width: 0;
+      aspect-ratio: 9/16;
+      border-left: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .work-card__body { padding: var(--sp-4) var(--sp-4) var(--sp-5); }
     .work-card__num {
       font-size: 11px;
       font-weight: 600;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: rgba(255,255,255,0.4);
-      margin-bottom: var(--sp-3);
+      margin-bottom: var(--sp-2);
     }
     .work-card__title {
       font-family: var(--font-display);
@@ -349,6 +385,7 @@
       opacity: 0.5;
       pointer-events: none;
     }
+    .work-card--coming .work-card__body { padding: var(--sp-5); }
     .work-card--coming .work-card__link { color: rgba(255,255,255,0.4); }
 
     /* ══════════════════════════════════════
@@ -593,24 +630,47 @@
 
   <!-- Cards (revealed after password) -->
   <div class="work-cards" id="workCards">
+
+    <!-- SpotOn -->
     <a href="/work/spoton.html" class="work-card">
-      <p class="work-card__num">01 / 03</p>
-      <h3 class="work-card__title">Scaling SpotOn Express Point of Sale System</h3>
-      <p class="work-card__desc">Led design across the Express POS platform through a strategic pivot, aligning a fragmented org and shipping work that scaled from alpha to GA.</p>
-      <span class="work-card__link">View Case Study →</span>
+      <div class="work-card__images">
+        <img class="work-card__img work-card__img--hero" src="images/case-studies/spoton-hero.png" alt="SpotOn Express POS in restaurant">
+        <div class="work-card__pair">
+          <img class="work-card__pair-station" src="images/case-studies/spoton-station.png" alt="Station checkout">
+          <img class="work-card__pair-handheld" src="images/case-studies/spoton-handheld.png" alt="Handheld checkout">
+        </div>
+      </div>
+      <div class="work-card__body">
+        <p class="work-card__num">01 / 03</p>
+        <h3 class="work-card__title">Scaling SpotOn Express Point of Sale System</h3>
+        <p class="work-card__desc">Led design across the Express POS platform through a strategic pivot, aligning a fragmented org and shipping work that scaled from alpha to GA.</p>
+        <span class="work-card__link">View Case Study →</span>
+      </div>
     </a>
+
+    <!-- Capital One Acquisitions -->
     <a href="/work/capital-one.html" class="work-card">
-      <p class="work-card__num">02 / 03</p>
-      <h3 class="work-card__title">Scaling Card Acquisitions at Capital One</h3>
-      <p class="work-card__desc">Addressed low conversion rates across credit card acquisition funnels. $100MM+ in attributable revenue impact over six years.</p>
-      <span class="work-card__link">View Case Study →</span>
+      <div class="work-card__images">
+        <img class="work-card__img work-card__img--hero" src="images/case-studies/capitalone-acquisitions.png" alt="Capital One card acquisitions">
+      </div>
+      <div class="work-card__body">
+        <p class="work-card__num">02 / 03</p>
+        <h3 class="work-card__title">Scaling Card Acquisitions at Capital One</h3>
+        <p class="work-card__desc">Addressed low conversion rates across credit card acquisition funnels. $100MM+ in attributable revenue impact over six years.</p>
+        <span class="work-card__link">View Case Study →</span>
+      </div>
     </a>
+
+    <!-- Coming Soon -->
     <div class="work-card work-card--coming">
-      <p class="work-card__num">03 / 03</p>
-      <h3 class="work-card__title">Design-Led Personalization at Capital One</h3>
-      <p class="work-card__desc">Personalized the credit card application journey based on customer behavior and financial profile, driving 500K+ new accounts per year.</p>
-      <span class="work-card__link">Coming Soon</span>
+      <div class="work-card__body">
+        <p class="work-card__num">03 / 03</p>
+        <h3 class="work-card__title">Design-Led Personalization at Capital One</h3>
+        <p class="work-card__desc">Personalized the credit card application journey based on customer behavior and financial profile, driving 500K+ new accounts per year.</p>
+        <span class="work-card__link">Coming Soon</span>
+      </div>
     </div>
+
   </div>
 </section>
 
@@ -736,15 +796,33 @@
   const pwSubmit = document.getElementById('pwSubmit');
   const pwError  = document.getElementById('pwError');
   const cards    = document.getElementById('workCards');
+  const pwForm   = document.querySelector('.work-gate__form');
 
-  const CORRECT = 'Marina2026';
+  const CORRECT    = 'marina2024'; // replace with actual password
+  const SESSION_KEY = 'mb_auth';
+  const ONE_DAY_MS  = 24 * 60 * 60 * 1000;
+
+  function unlockWork() {
+    cards.classList.add('visible');
+    pwForm.style.display = 'none';
+    pwError.style.display = 'none';
+  }
+
+  // On load: check if already authenticated within the last 24 hours
+  (function checkSession() {
+    try {
+      const stored = JSON.parse(localStorage.getItem(SESSION_KEY));
+      if (stored && stored.auth && (Date.now() - stored.ts) < ONE_DAY_MS) {
+        unlockWork();
+      }
+    } catch (e) {}
+  })();
 
   function tryPassword() {
     if (pwInput.value === CORRECT) {
-      pwError.style.display = 'none';
-      cards.classList.add('visible');
-      pwInput.parentElement.style.display = 'none';
-      pwError.parentElement && (pwError.style.display = 'none');
+      // Save auth state with timestamp
+      localStorage.setItem(SESSION_KEY, JSON.stringify({ auth: true, ts: Date.now() }));
+      unlockWork();
     } else {
       pwError.style.display = 'block';
     }
