@@ -4,10 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Capital One Pre-Approval — Marina Beric</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  /* ── SHARED TOKENS ── */
   :root {
     --bg-page:   #ffffff;
     --bg-alt:    #ffffff;
@@ -15,10 +16,19 @@
     --text-pri:  #1a1208;
     --text-body: #444444;
     --text-muted:#8a7a6e;
-    --accent:    #c4503a;
+    --accent:    #B91C1C;
     --rule:      #e0dbd6;
     --serif:     'Fraunces', Georgia, serif;
     --sans:      'Inter', 'Helvetica Neue', sans-serif;
+
+    /* spoton tokens */
+    --ink:       #0A0A0A;
+    --ink-mid:   #5A5A5A;
+    --ink-light: #ABABAB;
+    --nav-h:     72px;
+    --max:       1280px;
+    --gutter:    clamp(1.5rem, 5vw, 4rem);
+    --ease:      cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   body {
@@ -28,73 +38,197 @@
     -webkit-font-smoothing: antialiased;
     min-height: 100vh;
   }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
 
-  /* ── SITE ── */
-  #site { display: block; }
+  /* ══════════════════════════════════════════
+     TOP SECTION — spoton style
+  ══════════════════════════════════════════ */
 
-  /* ── NAV ── */
-  .site-nav {
-    position: sticky; top: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 80px; height: 72px;
-    background: rgba(255,255,255,.96);
-    backdrop-filter: blur(12px);
+  /* Nav */
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--nav-h);
+    z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s var(--ease);
+  }
+  .nav.scrolled { border-color: var(--rule); }
+  .nav__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+  .nav__logo {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    font-weight: 800;
+    font-variation-settings: 'opsz' 72;
+    letter-spacing: -0.02em;
+  }
+  .nav__links {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  .nav__links a {
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--ink-mid);
+    transition: color 0.2s;
+  }
+  .nav__links a:hover { color: var(--accent); }
+  .nav__links .nav__cta {
+    padding: 0.5rem 1.3rem;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .nav__links .nav__cta:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  .nav__hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 36px; height: 36px;
+    background: none; border: none; cursor: pointer; padding: 4px;
+  }
+  .nav__hamburger span { display: block; height: 1.5px; background: var(--ink); }
+
+  /* Case study hero */
+  .cs-hero {
+    padding-top: calc(var(--nav-h) + clamp(3rem, 6vw, 5rem));
+    padding-bottom: clamp(3rem, 6vw, 5rem);
+    border-bottom: 1px solid var(--rule);
+    width: 100%;
+  }
+  .wrap {
+    width: 100%;
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+  .cs-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+  }
+  .cs-eyebrow a {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    transition: color 0.2s;
+  }
+  .cs-eyebrow a:hover { color: var(--ink); }
+  .t-label {
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .t-display {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 7vw, 7rem);
+    font-weight: 900;
+    font-variation-settings: 'opsz' 144;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    max-width: 18ch;
+    margin-bottom: 1.5rem;
+  }
+  .t-body-hero {
+    font-family: var(--sans);
+    font-size: clamp(0.9rem, 1.1vw, 1rem);
+    font-weight: 400;
+    line-height: 1.78;
+    color: var(--ink-mid);
+    max-width: 60ch;
+    margin-top: 1.5rem;
+  }
+  .cs-meta-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: clamp(1.25rem, 2.5vw, 2rem) 0;
+    margin-top: 2rem;
+  }
+  .cs-meta__label {
+    font-size: 0.64rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 0.35rem;
+  }
+  .cs-meta__value {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  /* Metrics */
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    border-top: 1px solid var(--rule);
     border-bottom: 1px solid var(--rule);
   }
-  .nav-logo {
-    font-family: var(--serif); font-size: 20px; font-weight: 400;
-    letter-spacing: .04em; color: var(--text-pri); text-decoration: none;
+  .metric {
+    padding: clamp(1.25rem, 2.5vw, 2rem) clamp(1rem, 2vw, 1.75rem);
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
   }
-  .nav-links { display: flex; gap: 40px; list-style: none; }
-  .nav-links a {
-    font-size: 13px; font-weight: 500; letter-spacing: .08em;
-    text-transform: uppercase; color: var(--text-muted); text-decoration: none;
-    transition: color .2s;
+  .metric:last-child { border-right: none; }
+  .metric__value {
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 2.8vw, 2.6rem);
+    font-weight: 900;
+    font-variation-settings: 'opsz' 72;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--accent);
   }
-  .nav-links a:hover { color: var(--text-pri); }
+  .metric__label {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    line-height: 1.4;
+  }
 
-  /* ── BACK LINK ── */
-  .back-link {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 28px 80px 0;
-    font-size: 13px; font-weight: 600; letter-spacing: .1em;
-    text-transform: uppercase; color: var(--text-muted);
-    text-decoration: none; transition: color .2s;
+  /* Hero image area */
+  .cs-fullbleed {
+    width: 100%;
+    display: block;
   }
-  .back-link:hover { color: var(--text-pri); }
-  .back-link svg { transition: transform .2s; }
-  .back-link:hover svg { transform: translateX(-3px); }
-
-  /* ── HERO ── */
-  .hero {
-    padding: 56px 80px 80px;
-    background: var(--bg-page);
-    border-bottom: 1px solid var(--rule);
-  }
-  .hero-label {
-    font-size: 13px; font-weight: 600; letter-spacing: .12em;
-    text-transform: uppercase; color: var(--accent); margin-bottom: 28px;
-  }
-  .hero-title {
-    font-family: var(--serif); font-size: clamp(52px,6vw,92px);
-    font-weight: 300; line-height: 1.0; letter-spacing: -.02em;
-    color: var(--text-pri); max-width: 860px; margin-bottom: 40px;
-  }
-  .hero-subtitle {
-    font-size: 18px; font-weight: 400; line-height: 1.7;
-    color: var(--text-muted); max-width: 640px; margin-bottom: 60px;
-  }
-  .hero-cover {
-    width: 100%; max-width: 1100px;
-    aspect-ratio: 16/9;
-    border-radius: 4px; overflow: hidden;
-    border: 1px solid var(--rule);
-    background: var(--bg-alt);
-    position: relative;
-  }
-  .hero-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .cs-fullbleed img { width: 100%; height: auto; display: block; }
   .hero-cover-placeholder {
-    width: 100%; height: 100%;
+    width: 100%;
+    aspect-ratio: 16/9;
     background: linear-gradient(135deg, #1c140d 0%, #2a1e14 30%, #3a2818 60%, #251a11 100%);
     display: flex; align-items: center; justify-content: center;
   }
@@ -103,13 +237,15 @@
     text-transform: uppercase; color: rgba(240,232,222,.25);
   }
 
+  /* ══════════════════════════════════════════
+     BODY SECTIONS — original capital-one style
+  ══════════════════════════════════════════ */
+
   /* ── SHARED SECTION LAYOUT ── */
   .section { padding: 80px; border-bottom: 1px solid var(--rule); }
   .section.alt { background: var(--bg-alt); }
   .section.mid { background: var(--bg-mid); }
-
   .section-inner { max-width: 1100px; margin: 0 auto; }
-
   .two-col {
     display: grid; grid-template-columns: 240px 1fr;
     gap: 60px; align-items: start;
@@ -119,7 +255,7 @@
     text-transform: uppercase; color: var(--text-muted); padding-top: 5px;
   }
 
-  /* ── SECTION DIVIDER (replaces dark phase headers) ── */
+  /* ── SECTION DIVIDER ── */
   .section-divider {
     background: var(--bg-mid);
     border-top: 1px solid var(--rule);
@@ -136,44 +272,35 @@
   /* ── TYPOGRAPHY ── */
   .heading-lg {
     font-family: var(--serif); font-size: 42px; font-weight: 400;
-    line-height: 1.1; letter-spacing: -.02em; color: var(--text-pri);
-    margin-bottom: 28px;
+    line-height: 1.1; letter-spacing: -.02em; color: var(--text-pri); margin-bottom: 28px;
   }
   .body-text { font-size: 17px; font-weight: 400; line-height: 1.75; color: var(--text-body); }
   .body-text + .body-text { margin-top: 20px; }
-
   .overline {
     font-size: 13px; font-weight: 600; letter-spacing: .12em;
-    text-transform: uppercase; color: var(--accent);
-    margin-bottom: 20px; display: block;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 20px; display: block;
   }
 
   /* ── SKILLS GRID ── */
   .skills-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 12px 40px;
-    margin-top: 12px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px 40px; margin-top: 12px;
   }
   .skill-item {
     font-size: 16px; font-weight: 500; color: var(--text-pri);
-    padding-left: 14px; border-left: 2px solid var(--rule);
-    line-height: 1.5;
+    padding-left: 14px; border-left: 2px solid var(--rule); line-height: 1.5;
   }
 
-  /* ── RULE ── */
   hr.rule { border: none; border-top: 1px solid var(--rule); margin: 48px 0; }
 
   /* ── STRATEGY PILLARS ── */
-  .pillars-grid {
-    display: grid; grid-template-columns: repeat(3,1fr);
-    gap: 24px; margin-top: 12px;
-  }
+  .pillars-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 12px; }
   .pillar {
     background: var(--bg-page); border: 1px solid var(--rule);
     border-radius: 4px; padding: 28px;
   }
   .pillar-icon {
     width: 44px; height: 44px; border-radius: 50%;
-    background: rgba(196,80,58,.1);
+    background: rgba(185,28,28,.1);
     display: flex; align-items: center; justify-content: center; margin-bottom: 16px;
   }
   .pillar-icon svg { stroke: var(--accent); fill: none; }
@@ -193,10 +320,7 @@
 
   /* ── IMAGE BLOCKS ── */
   .img-block { margin-top: 48px; }
-  .img-block img {
-    width: 100%; display: block;
-    border-radius: 4px;
-  }
+  .img-block img { width: 100%; display: block; border-radius: 4px; }
   .img-caption {
     font-size: 15px; color: var(--text-muted); margin-top: 12px;
     font-style: italic; text-align: center; letter-spacing: .01em;
@@ -223,41 +347,31 @@
   /* ── EXPERIMENT BLOCKS ── */
   .experiment {
     display: grid; grid-template-columns: 360px 1fr;
-    gap: 60px; align-items: center;
-    padding: 56px 0;
+    gap: 60px; align-items: center; padding: 56px 0;
   }
   .experiment + .experiment { border-top: 1px solid var(--rule); }
   .experiment.reverse { grid-template-columns: 1fr 360px; }
   .experiment.reverse .exp-image { order: 2; }
   .experiment.reverse .exp-body { order: 1; }
-
-  /* WHITE background on experiment images */
-  .exp-image {
-    border-radius: 4px; overflow: hidden;
-    background: #ffffff;
-  }
+  .exp-image { border-radius: 4px; overflow: hidden; background: #ffffff; }
   .exp-image img { width: 100%; display: block; }
-
   .exp-number {
     font-size: 13px; font-weight: 700; letter-spacing: .14em;
-    text-transform: uppercase; color: var(--accent);
-    margin-bottom: 16px; display: block;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 16px; display: block;
   }
   .exp-title {
     font-family: var(--serif); font-size: 30px; font-weight: 400;
-    line-height: 1.1; letter-spacing: -.01em;
-    color: var(--text-pri); margin-bottom: 20px;
+    line-height: 1.1; letter-spacing: -.01em; color: var(--text-pri); margin-bottom: 20px;
   }
   .exp-label {
     font-size: 13px; font-weight: 600; letter-spacing: .1em;
-    text-transform: uppercase; color: var(--text-muted);
-    margin-bottom: 8px; display: block;
+    text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; display: block;
   }
   .exp-text { font-size: 17px; line-height: 1.75; color: var(--text-body); margin-bottom: 24px; }
   .exp-result {
     display: flex; align-items: flex-start; gap: 12px;
     padding: 14px 18px;
-    background: rgba(196,80,58,.06);
+    background: rgba(185,28,28,.06);
     border-left: 3px solid var(--accent);
     border-radius: 0 4px 4px 0;
   }
@@ -270,10 +384,7 @@
   /* ── RESEARCH GRID ── */
   .research-grid { display: flex; flex-direction: column; gap: 40px; margin-top: 40px; }
   .research-item { display: flex; flex-direction: column; gap: 14px; }
-  .research-img {
-    width: 100%; display: block;
-    border-radius: 4px;
-  }
+  .research-img { width: 100%; display: block; border-radius: 4px; }
   .research-caption { font-size: 20px; font-weight: 500; color: var(--text-body); text-align: center; line-height: 1.5; }
 
   /* ── LEADERSHIP ARTIFACTS ── */
@@ -285,18 +396,20 @@
   }
   .artifact-number {
     font-size: 13px; font-weight: 700; letter-spacing: .14em;
-    text-transform: uppercase; color: var(--accent);
-    margin-bottom: 10px; display: block;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 10px; display: block;
   }
   .artifact-title {
     font-family: var(--serif); font-size: 26px; font-weight: 400;
-    color: var(--text-pri); letter-spacing: -.01em; line-height: 1.2;
-    margin-bottom: 14px;
+    color: var(--text-pri); letter-spacing: -.01em; line-height: 1.2; margin-bottom: 14px;
   }
   .artifact-body { font-size: 17px; line-height: 1.75; color: var(--text-body); }
   .artifact-img {
-    width: 130%; margin-left: -15%;
-    border-radius: 4px; display: block;
+    width: calc(100vw - 160px);
+    max-width: 1400px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    border-radius: 4px;
+    display: block;
   }
 
   /* ── CONCLUSION ── */
@@ -316,7 +429,7 @@
     max-width: 560px; margin: 0 auto;
   }
 
-  /* ── VARIABLES LIST ── */
+  /* ── VAR LIST ── */
   .var-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
   .var-list li {
     font-size: 16px; color: var(--text-body);
@@ -331,44 +444,110 @@
   .footer-logo { font-family: var(--serif); font-size: 18px; font-weight: 400; color: var(--text-muted); }
   .footer-copy { font-size: 14px; color: var(--text-muted); }
 
+  /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
-    .site-nav { padding: 0 24px; }
-    .back-link { padding: 24px 24px 0; }
-    .hero, .section, .section-divider, .conclusion-wrap { padding: 48px 24px; }
+    .nav__links { display: none; }
+    .nav__hamburger { display: flex; }
+    .metrics { grid-template-columns: repeat(3, 1fr); }
+    .metric:nth-child(3) { border-right: none; }
+    .metric:nth-child(4), .metric:nth-child(5) { border-top: 1px solid var(--rule); }
+    .metric:nth-child(5) { border-right: none; }
+    .cs-meta-row { grid-template-columns: 1fr 1fr; }
+    .section, .section-divider, .conclusion-wrap { padding: 48px 24px; }
     .two-col, .experiment, .experiment.reverse, .artifact-header { grid-template-columns: 1fr; gap: 24px; }
     .pillars-grid, .kpi-strip { grid-template-columns: 1fr; }
     .footer { flex-direction: column; gap: 12px; text-align: center; padding: 32px 24px; }
+    .artifact-img { width: 100%; margin-left: 0; }
+  }
+  @media (max-width: 640px) {
+    .metrics { grid-template-columns: 1fr 1fr; }
+    .metric { border-right: none; }
+    .metric:nth-child(odd) { border-right: 1px solid var(--rule); }
+    .metric:nth-child(5) { grid-column: 1/-1; border-top: 1px solid var(--rule); }
+    .cs-meta-row { grid-template-columns: 1fr 1fr; }
   }
 </style>
 </head>
 <body>
 
-<div id="site">
-
-<nav class="site-nav">
-  <a href="../index.html" class="nav-logo">Marina Beric</a>
-  <ul class="nav-links">
-    <li><a href="../index.html#workGate">Work</a></li>
-    <li><a href="../index.html#about">About</a></li>
-    <li><a href="../index.html#contact">Contact</a></li>
-  </ul>
+<!-- ══ NAV (spoton style) ══ -->
+<nav class="nav" id="nav">
+  <div class="nav__inner">
+    <a href="../index.html" class="nav__logo">Marina Beric</a>
+    <ul class="nav__links">
+      <li><a href="../index.html#work">Work</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="mailto:marinaberic3@gmail.com" class="nav__cta">Contact</a></li>
+    </ul>
+    <button class="nav__hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
 
-<a href="../index.html" class="back-link">
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 3L5 8l5 5"/></svg>
-  Back to Work
-</a>
+<!-- ══ HERO (spoton style) ══ -->
+<section class="cs-hero">
+  <div class="wrap">
+    <div class="cs-eyebrow">
+      <a href="../index.html">← All Work</a>
+      <span class="t-label" style="color:var(--rule)">·</span>
+      <span class="t-label">Capital One · 2021</span>
+    </div>
+    <h1 class="t-display">Capital One Credit Card Pre-Approval Experience</h1>
+    <p class="t-body-hero">As the Senior Manager of the Acquisition Experience Design team, I led a team of UX, UI, and Content designers and collaborated with Tech, Product, and Marketing partners to deliver strong business results in credit card Acquisitions and transform the user experience with human-centered design.</p>
+    <div class="cs-meta-row">
+      <div>
+        <p class="cs-meta__label">My Role</p>
+        <p class="cs-meta__value">Senior Manager, Experience Design</p>
+      </div>
+      <div>
+        <p class="cs-meta__label">Scope</p>
+        <p class="cs-meta__value">Credit Card Acquisitions</p>
+      </div>
+      <div>
+        <p class="cs-meta__label">Team</p>
+        <p class="cs-meta__value">UX, UI + Content Designers</p>
+      </div>
+      <div>
+        <p class="cs-meta__label">Timeline</p>
+        <p class="cs-meta__value">2021</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-<!-- ── HERO ── -->
-<section class="hero">
-  <p class="hero-label">Design Management Case Study</p>
-  <h1 class="hero-title">Capital One Credit Card Pre-Approval Experience</h1>
-  <p class="hero-subtitle">As the Senior Manager of the Acquisition Experience Design team, I led a team of UX, UI, and Content designers and collaborated with Tech, Product, and Marketing partners to deliver strong business results in credit card Acquisitions and transform the user experience with human-centered design.</p>
+<!-- ══ METRICS (spoton style) ══ -->
+<div class="metrics">
+  <div class="metric">
+    <span class="metric__value">NPV ↑</span>
+    <span class="metric__label">Net Present Value — increased across multiple experiments</span>
+  </div>
+  <div class="metric">
+    <span class="metric__value">NABs ↑</span>
+    <span class="metric__label">Annual Incremental New Accounts Booked</span>
+  </div>
+  <div class="metric">
+    <span class="metric__value">Drop-off ↓</span>
+    <span class="metric__label">Application drop-off between Pre-Approval and Application</span>
+  </div>
+  <div class="metric">
+    <span class="metric__value">4</span>
+    <span class="metric__label">Experiments shipped via human-centered design</span>
+  </div>
+  <div class="metric">
+    <span class="metric__value">3</span>
+    <span class="metric__label">Variables tested in user research</span>
+  </div>
+</div>
 
-<div class="hero-cover">
+<!-- ══ HERO IMAGE ══ -->
+<div class="cs-fullbleed">
   <img src="../images/Cap1-PA-herothumb.png" alt="Capital One Pre-Approval — laptop and phone showing comparison offers">
 </div>
-</section>
+
+<!-- ══════════════════════════════════════════
+     EVERYTHING BELOW IS THE ORIGINAL LAYOUT
+══════════════════════════════════════════ -->
 
 <!-- ── PROBLEM + ROLE ── -->
 <section class="section">
@@ -577,7 +756,7 @@
     <!-- Experiment 1 -->
     <div class="experiment">
       <div class="exp-image">
-        <img src="/images/experiment01.jpg" alt="Celebratory moment animation — pre-approval offer screen">
+        <img src="../images/experiment01.jpg" alt="Celebratory moment animation — pre-approval offer screen">
       </div>
       <div class="exp-body">
         <span class="exp-number">Experiment 01</span>
@@ -674,7 +853,7 @@
         </div>
         <p class="artifact-body">As a senior design manager, I am highly effective in guiding my team towards producing impactful results. In response to the challenges posed by an overwhelming volume of haphazard design support requests, I secured buy-in from Product and Tech partners to establish a structured backlog. To ground our design efforts in data, I facilitated a cross-functional brainstorm with key business stakeholders and partners, during which my team collected existing business problems and customer problems.<br><br>Through a rigorous prioritization exercise, I led a core team of stakeholders in defining the team's near-term deliverables. In collaboration with the Experience Design team, we synthesized all the ideas generated during the brainstorming session and categorized them into themes, building out hypotheses and prioritizing them into a shared backlog.</p>
       </div>
-      <img class="artifact-img" src="/images/artifact02.jpg" alt="Virtual Brainstorm FigJam — Q2 2021 cross-functional session">
+      <img class="artifact-img" src="../images/artifact02.jpg" alt="Virtual Brainstorm FigJam — Q2 2021 cross-functional session">
     </div>
 
     <hr class="rule">
@@ -687,7 +866,7 @@
         </div>
         <p class="artifact-body">As a result of this work, I led a successful design-led effort to organize intent with our partners, which helped to define priorities and keep our team organized while managing our workload. The process of involving partners in the brainstorming session ensured that they felt included in the design process, which led to a more collaborative and effective outcome.<br><br>My team was also empowered to see what we were working towards, which led to increased motivation and a shared sense of purpose. These results are a testament to the effectiveness of my design leadership and the positive impact that it can have on the design process and the broader organization.</p>
       </div>
-      <img class="artifact-img" src="/images/artifact03.jpg" alt="PA Design Backlog — January 2021">
+      <img class="artifact-img" src="../images/artifact03.jpg" alt="PA Design Backlog — January 2021">
     </div>
 
     <hr class="rule">
@@ -718,8 +897,11 @@
   <span class="footer-copy">© 2026 Marina Beric. All rights reserved.</span>
 </footer>
 
-</div><!-- /#site -->
-
+<script>
+  window.addEventListener('scroll', () => {
+    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 10);
+  });
+</script>
 
 </body>
 </html>
