@@ -296,8 +296,10 @@
     gap: 60px; align-items: start;
   }
   .col-label {
-    font-size: 13px; font-weight: 600; letter-spacing: .12em;
-    text-transform: uppercase; color: var(--text-muted); padding-top: 5px;
+    font-family: var(--serif); font-size: 22px; font-weight: 400;
+    font-variation-settings: 'opsz' 48;
+    letter-spacing: -.01em; color: var(--text-pri); padding-top: 5px;
+    line-height: 1.2;
   }
 
   /* ── SECTION DIVIDER ── */
@@ -309,7 +311,8 @@
     display: flex; align-items: center; gap: 24px;
   }
   .divider-title {
-    font-family: var(--sans); font-size: 22px; font-weight: 700;
+    font-family: var(--serif); font-size: 22px; font-weight: 500;
+    font-variation-settings: 'opsz' 48;
     color: var(--text-pri); letter-spacing: -.01em; white-space: nowrap;
   }
   .divider-line { flex: 1; height: 1px; background: var(--rule); }
@@ -427,10 +430,14 @@
   .exp-result-text { font-size: 16px; color: var(--text-body); line-height: 1.65; }
 
   /* ── RESEARCH GRID ── */
-  .research-grid { display: flex; flex-direction: column; gap: 40px; margin-top: 40px; }
-  .research-item { display: flex; flex-direction: column; gap: 14px; }
+  .research-grid { display: flex; flex-direction: column; gap: 56px; margin-top: 40px; }
+  .research-item { display: flex; flex-direction: column; gap: 20px; }
   .research-img { width: 100%; display: block; border-radius: 4px; }
-  .research-caption { font-size: 20px; font-weight: 500; color: var(--text-body); text-align: center; line-height: 1.5; }
+  .research-headline {
+    font-family: var(--serif); font-size: clamp(22px, 2.4vw, 30px); font-weight: 700;
+    font-variation-settings: 'opsz' 72;
+    line-height: 1.2; letter-spacing: -.01em; color: var(--text-pri);
+  }
 
   /* ── LEADERSHIP ARTIFACTS ── */
   .artifact { margin-bottom: 64px; }
@@ -501,7 +508,7 @@
     .cs-hero { padding-left: 24px; padding-right: 24px; }
     .section, .section-divider, .conclusion-wrap { padding: 48px 24px; }
     .two-col { grid-template-columns: 1fr; gap: 20px; }
-    .col-label { padding-top: 0; font-size: 12px; }
+    .col-label { padding-top: 0; font-size: 18px; }
     .experiment, .experiment.reverse { grid-template-columns: 1fr; gap: 24px; }
     .experiment.reverse .exp-image { order: -1; }
     .experiment.reverse .exp-body { order: 0; }
@@ -719,7 +726,7 @@
       <p class="body-text">As a design team leader, I emphasized the importance of providing immediate value and impact through partnering for quick wins while getting embedded into the Pre-Approval space. I led discussions with partners about applying the design standards set forth by the Enterprise design system, and I guided my team to create scalable designs that enabled Tech to deliver more efficiently while allowing Design to allocate more time to impactful designs.</p>
     </div>
     <div class="img-block">
-      <img src="https://www.figma.com/api/mcp/asset/11a7e0d4-62df-4de6-b896-fcad0068c966" alt="Capital One Pre-Approval — redesigned experience alongside original tool">
+      <img src="../images/pa-lockup.png" alt="Capital One Pre-Approval — redesigned experience alongside original tool">
     </div>
   </div>
 </section>
@@ -766,16 +773,16 @@
 
     <div class="research-grid" style="margin-top: 64px;">
       <div class="research-item">
+        <h3 class="research-headline">We tested whether participants liked Pre-Approval separate or combined with a Credit Card Application</h3>
         <img class="research-img" src="../images/research-paintegrate.png" alt="Pre-Approval integrated with Application prototype">
-        <p class="research-caption">We tested whether participants liked Pre-Approval separate or combined with a Credit Card Application</p>
       </div>
       <div class="research-item">
+        <h3 class="research-headline">We tested variations of user flow and task sequencing to learn whether participants prefer a single-page or multi-page experience</h3>
         <img class="research-img" src="../images/research-single-multi.png" alt="Single-page vs multi-page prototype comparison">
-        <p class="research-caption">We tested variations of user flow and task sequencing to learn whether participants prefer a single-page or multi-page experience</p>
       </div>
       <div class="research-item">
+        <h3 class="research-headline">We tested outcome page variations to learn what participants like and dislike about different outcome experiences (happy / sad path, upsell / downsell)</h3>
         <img class="research-img" src="../images/research-offerpage.png" alt="Offer page prototype variations">
-        <p class="research-caption">We tested outcome page variations to learn what participants like and dislike about different outcome experiences (happy / sad path, upsell / downsell)</p>
       </div>
     </div>
   </div>
