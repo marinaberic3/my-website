@@ -37,6 +37,13 @@
 </head>
 <body>
 
+<script>
+// Auth guard — redirect to home gate if not authenticated in this session
+if (sessionStorage.getItem('mb_auth') !== 'true') {
+  window.location.replace('/#work');
+}
+</script>
+
   <!-- Nav -->
   <nav class="nav">
     <div class="wrap nav__inner">
