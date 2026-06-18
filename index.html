@@ -790,62 +790,60 @@
   btn.addEventListener('click', () => nav.classList.toggle('open'));
 
   // Password gate
-  const pwInput  = document.getElementById('pwInput');
-  const pwSubmit = document.getElementById('pwSubmit');
-  const pwError  = document.getElementById('pwError');
-  const cards    = document.getElementById('workCards');
-  const pwForm   = document.querySelector('.work-gate__form');
+const pwInput = document.getElementById('pwInput');
+const pwSubmit = document.getElementById('pwSubmit');
+const pwError = document.getElementById('pwError');
+const cards = document.getElementById('workCards');
+const pwForm = document.querySelector('.work-gate__form');
+const pwHeading = document.querySelector('.work-gate__heading');
+const pwSub = document.querySelector('.work-gate__sub');
 
-  const SESSION_KEY   = 'mb_auth';
-  const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
+const SESSION_KEY = 'mb_auth';
 
-  function unlockWork() {
-    cards.classList.add('visible');
-    pwForm.style.display = 'none';
-    pwError.style.display = 'none';
-  }
+function unlockWork() {
+cards.classList.add('visible');
+pwHeading.style.display = 'none';
+pwSub.style.display = 'none';
+pwForm.style.display = 'none';
+pwError.style.display = 'none';
+}
 
-  // On load: check if already authenticated within the last 30 days
-  (function checkSession() {
-    try {
-      const stored = JSON.parse(localStorage.getItem(SESSION_KEY));
-      if (stored && stored.auth && (Date.now() - stored.ts) < THIRTY_DAYS_MS) {
-        unlockWork();
-      }
-    } catch (e) {}
-  })();
+// Session-scoped — cleared when browser closes, not persisted
+if (sessionStorage.getItem(SESSION_KEY) === 'true') {
+unlockWork();
+}
 
-  async function tryPassword() {
-    const password = pwInput.value.trim();
-    if (!password) return;
-    pwSubmit.disabled = true;
-    pwSubmit.textContent = 'Checking…';
-    pwError.style.display = 'none';
-    try {
-      const res = await fetch('/api/auth', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password })
-      });
-      if (res.ok) {
-        localStorage.setItem(SESSION_KEY, JSON.stringify({ auth: true, ts: Date.now() }));
-        unlockWork();
-      } else {
-        pwError.style.display = 'block';
-        pwInput.value = '';
-        pwInput.focus();
-      }
-    } catch {
-      pwError.textContent = 'Something went wrong. Please try again.';
-      pwError.style.display = 'block';
-    } finally {
-      pwSubmit.disabled = false;
-      pwSubmit.textContent = 'View Work';
-    }
-  }
+async function tryPassword() {
+const password = pwInput.value.trim();
+if (!password) return;
+pwSubmit.disabled = true;
+pwSubmit.textContent = 'Checking…';
+pwError.style.display = 'none';
+try {
+const res = await fetch('/api/auth', {
+method: 'POST',
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify({ password })
+});
+if (res.ok) {
+sessionStorage.setItem(SESSION_KEY, 'true');
+unlockWork();
+} else {
+pwError.style.display = 'block';
+pwInput.value = '';
+pwInput.focus();
+}
+} catch {
+pwError.textContent = 'Something went wrong. Please try again.';
+pwError.style.display = 'block';
+} finally {
+pwSubmit.disabled = false;
+pwSubmit.textContent = 'View Work';
+}
+}
 
-  pwSubmit.addEventListener('click', tryPassword);
-  pwInput.addEventListener('keydown', e => { if (e.key === 'Enter') tryPassword(); });
+pwSubmit.addEventListener('click', tryPassword);
+pwInput.addEventListener('keydown', e => { if (e.key === 'Enter') tryPassword(); });
 </script>
 
 </body>
